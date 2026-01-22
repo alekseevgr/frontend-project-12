@@ -3,7 +3,7 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import "./index.css";
 import App from "./App.jsx";
-import Auth from "./Auth.jsx";
+import Auth from "./LoginPage.jsx";
 import NotFound from "./NotFound.jsx"
 
 const root = document.getElementById("root");
