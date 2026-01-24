@@ -1,17 +1,19 @@
-import React from "react";
-import ReactDOM from "react-dom";
 import { useFormik } from "formik";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Button, Form } from "react-bootstrap";
 import { useState } from "react";
 import axios from "axios";
 import routes from "../routes";
 
-const LoginPage = () => {
-  const [error, setError] = useState(null);
+import { useDispatch } from "react-redux";
+import { setCredentials } from "./slices/authSlice";
 
-  //sconst location = useLocation();
+const LoginPage = () => {
+  const dispatch = useDispatch();
   const navigate = useNavigate();
+  const [errorPassword, setErrorPassword] = useState(null);
+
+  //const location = useLocation();
 
   //const from = location.state?.from?.pathname || "/";
 
@@ -23,23 +25,24 @@ const LoginPage = () => {
     onSubmit: async (values) => {
       try {
         const res = await axios.post(routes.loginPath(), values);
+        const token = res.data.token;
 
-        window.localStorage.setItem(
-          "userId",
-          JSON.stringify({ token: res.data.token }),
-        );
-        console.log(window.localStorage)
+        dispatch(setCredentials({ token }));
+        localStorage.setItem("userId", token);
+
+        console.log(window.localStorage);
 
         navigate("/", { replace: true });
 
-        setError(null);
+        setErrorPassword(null);
       } catch (err) {
-        console.error(err)
+        if (err.response?.status === 401) {
+          setErrorPassword(true);
+        }
+        console.error(err);
       }
     },
   });
-
-  const errorDiv = (<div className="invalid-feedback">the username or password is incorrect</div>)
 
   return (
     <Form onSubmit={formik.handleSubmit}>
@@ -53,7 +56,7 @@ const LoginPage = () => {
           value={formik.values.username}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
-          isInvalid={Boolean(error)}
+          isInvalid={Boolean(errorPassword)}
         />
       </Form.Group>
       <Form.Group className="mb-3">
@@ -62,13 +65,15 @@ const LoginPage = () => {
         <Form.Control
           id="password"
           name="password"
-          type="text"
+          type="password"
           value={formik.values.password}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
-          isInvalid={Boolean(error)}
+          isInvalid={Boolean(errorPassword)}
         />
-        {error && errorDiv}
+        <Form.Control.Feedback type="invalid">
+          The username or password is incorrect
+        </Form.Control.Feedback>
       </Form.Group>
 
       <Button type="submit">Submit</Button>
