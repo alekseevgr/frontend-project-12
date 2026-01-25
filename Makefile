@@ -6,7 +6,7 @@ install:
 	npm ci --prefix frontend
 
 start-frontend:
-	make -C frontend start
+	npm run dev --prefix frontend
 
 start-backend:
 	npx start-server -s ./frontend/dist

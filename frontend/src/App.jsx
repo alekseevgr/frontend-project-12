@@ -1,28 +1,65 @@
-import { useState } from "react";
+import { useEffect } from "react";
+import axios from "axios";
 
 import "./App.css";
+import { useDispatch, useSelector } from "react-redux";
+import routes from "./utils/routes";
+import { setChannels } from "./slices/channelsSlice";
+import { setMessages } from "./slices/messagesSlice";
+
+import ChatList from "./components/ChatList";
+import MessageList from "./components/MessageList";
 
 const App = () => {
-  const [count, setCount] = useState(0);
+  const dispatch = useDispatch();
+  const token = useSelector((state) => state.auth.token);
+  const channels = useSelector((state) => state.channels.items);
+  const messages = useSelector((state) => state.messages.items);
+
+  async function getChannels(token) {
+    const { data } = await axios.get(routes.channels(), {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+    return data;
+  }
+  async function getMessages(token) {
+    const { data } = await axios.get(routes.messages(), {
+      headers: { Authorization: `Bearer ${token}` },
+    });
+
+    return data;
+  }
+
+  useEffect(() => {
+    (async () => {
+      const channelsData = await getChannels(token);
+      const messagesData = await getMessages(token);
+
+      dispatch(setChannels(channelsData));
+      dispatch(setMessages(messagesData));
+    })();
+  }, [token, dispatch]);
+
+  useEffect(() => {
+    console.log("channels:", channels);
+    console.log("messages:", messages);
+  }, [channels, messages]);
 
   return (
     <>
-      <div>
-        <a href="https://vite.dev" target="_blank" rel="noreferrer"></a>
-        <a href="https://react.dev" target="_blank" rel="noreferrer"></a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <header className="app-header">Hexlet chat by alekseevgr</header>
+      <main className="app-main">
+        <aside className="channels">
+          <ChatList channels={channels} activeChannelId={"1"} />
+        </aside>
+        <section className="chat">
+          <div className="messages">
+            <MessageList messages={messages} activeChannelId="1" />
+          </div>
+          <div className="composer">{/* тут потом форма отправки */}</div>
+        </section>
+      </main>
+      <footer></footer>
     </>
   );
 };

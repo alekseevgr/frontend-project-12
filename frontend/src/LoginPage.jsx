@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { Button, Form } from "react-bootstrap";
 import { useState } from "react";
 import axios from "axios";
-import routes from "../routes";
+import routes from "./utils/routes";
 
 import { useDispatch } from "react-redux";
 import { setCredentials } from "./slices/authSlice";
@@ -11,7 +11,7 @@ import { setCredentials } from "./slices/authSlice";
 const LoginPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [errorPassword, setErrorPassword] = useState(null);
+  const [errorPassword, setErrorPassword] = useState(false);
 
   //const location = useLocation();
 
@@ -34,7 +34,7 @@ const LoginPage = () => {
 
         navigate("/", { replace: true });
 
-        setErrorPassword(null);
+        setErrorPassword(false);
       } catch (err) {
         if (err.response?.status === 401) {
           setErrorPassword(true);
