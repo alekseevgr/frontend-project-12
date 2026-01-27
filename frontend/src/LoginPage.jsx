@@ -26,11 +26,12 @@ const LoginPage = () => {
       try {
         const res = await axios.post(routes.loginPath(), values);
         const token = res.data.token;
+        const name = res.data.username;
 
-        dispatch(setCredentials({ token }));
+        dispatch(setCredentials({ token, name }));
+
         localStorage.setItem("userId", token);
-
-        console.log(window.localStorage);
+        localStorage.setItem('username', name)
 
         navigate("/", { replace: true });
 

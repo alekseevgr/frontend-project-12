@@ -9,6 +9,7 @@ import { setMessages } from "./slices/messagesSlice";
 
 import ChatList from "./components/ChatList";
 import MessageList from "./components/MessageList";
+import NewMessage from "./components/NewMessage"
 
 const App = () => {
   const dispatch = useDispatch();
@@ -56,7 +57,7 @@ const App = () => {
           <div className="messages">
             <MessageList messages={messages} activeChannelId="1" />
           </div>
-          <div className="composer">{/* тут потом форма отправки */}</div>
+          <div className="sendMessage"><NewMessage /></div>
         </section>
       </main>
       <footer></footer>

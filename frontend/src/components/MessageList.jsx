@@ -1,4 +1,4 @@
-const ChatList = ({ messages }) => {
+const MessageList = ({ messages }) => {
   //{ id: '1', body: 'text message', channelId: '1', username: 'admin }, ...]
   return (
     <>
@@ -16,4 +16,4 @@ const ChatList = ({ messages }) => {
   );
 };
 
-export default ChatList;
+export default MessageList;

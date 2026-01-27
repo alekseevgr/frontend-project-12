@@ -1,4 +1,5 @@
 const ChatList = ({ channels }) => {
+   // [{ id: '1', name: 'general', removable: false }, ...]
   return (
     <>
       <ul>
