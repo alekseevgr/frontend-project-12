@@ -9,7 +9,7 @@ import axios from "axios";
 const NewMessage = () => {
   const token = useSelector((state) => state.auth.token);
   const currentName = useSelector((state) => state.auth.username);
-  const currentId = useSelector((state) => state.channels.currentChannelId);
+  const currentId = useSelector((state) => state.channels.activeChannelId);
 
   const formik = useFormik({
     initialValues: {

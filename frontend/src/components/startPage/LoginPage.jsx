@@ -3,10 +3,10 @@ import { useNavigate } from "react-router-dom";
 import { Button, Form } from "react-bootstrap";
 import { useState } from "react";
 import axios from "axios";
-import routes from "./utils/routes";
+import routes from "../../utils/routes";
 
 import { useDispatch } from "react-redux";
-import { setCredentials } from "./slices/authSlice";
+import { setCredentials } from "../../slices/authSlice";
 
 const LoginPage = () => {
   const dispatch = useDispatch();

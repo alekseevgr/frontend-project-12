@@ -5,9 +5,9 @@ import { Provider } from "react-redux";
 
 import "./index.css";
 import App from "./App.jsx";
-import LoginPage from "./LoginPage.jsx";
-import NotFound from "./NotFound.jsx";
-import CheckAuth from "./CheckAuth.jsx";
+import LoginPage from "./components/startPage/LoginPage.jsx";
+import NotFound from "./components/startPage/NotFound.jsx";
+import CheckAuth from "./components/startPage/CheckAuth.jsx";
 
 import { store } from "./slices/store.js";
 

@@ -126,3 +126,32 @@ body {
   background: #3b82f6;
   color: #fff;
 }
+
+.list-group {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 6px;
+}
+
+.list-group-item {
+  padding: 8px 12px;
+  border-radius: 8px;
+  border: 1px solid var(--border);
+  background: var(--panel);
+  color: var(--text);
+  cursor: pointer;
+  transition: background 120ms ease, border-color 120ms ease;
+}
+
+.list-group-item-action:hover {
+  background: #f1f5f9;
+  border-color: #cbd5f5;
+}
+
+.list-group-item.active {
+  background: #3b82f6;
+  color: #fff;
+  border-color: #3b82f6;
+}
