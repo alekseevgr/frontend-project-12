@@ -1,15 +1,15 @@
 import { useEffect } from "react";
 import axios from "axios";
 
-import "./App.css";
 import { useDispatch, useSelector } from "react-redux";
 import routes from "./utils/routes";
 import { setChannels } from "./slices/channelsSlice";
 import { setMessages } from "./slices/messagesSlice";
 
-import ChatList from "./components/ChatList";
-import MessageList from "./components/MessageList";
-import NewMessage from "./components/NewMessage"
+import ChatList from "./components/channelsList/ChatList";
+import MessageList from "./components/messageList/MessageList";
+import NewMessage from "./components/messageList/NewMessage";
+import styles from "./App.module.css";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -48,19 +48,25 @@ const App = () => {
 
   return (
     <>
-      <header className="app-header">Hexlet chat by alekseevgr</header>
-      <main className="app-main">
-        <aside className="channels">
+      <header className={styles.appHeader}>Hexlet chat by alekseevgr</header>
+
+      <main className={styles.appMain}>
+        <aside className={styles.channels}>
           <ChatList channels={channels} activeChannelId={"1"} />
         </aside>
-        <section className="chat">
-          <div className="messages">
+
+        <section className={styles.chat}>
+          <div className={styles.messages}>
             <MessageList messages={messages} activeChannelId="1" />
           </div>
-          <div className="sendMessage"><NewMessage /></div>
+
+          <div className={styles.sendMessage}>
+            <NewMessage />
+          </div>
         </section>
       </main>
-      <footer></footer>
+
+      <footer />
     </>
   );
 };

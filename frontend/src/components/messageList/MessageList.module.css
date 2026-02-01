@@ -1,0 +1,64 @@
+.messageList {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 10px;
+}
+
+.messageItem {
+  padding: 10px 12px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: #ffffff;
+  display: grid;
+  gap: 4px;
+}
+
+.messageUser {
+  font-weight: 600;
+  color: var(--text);
+}
+
+.messageText {
+  color: var(--text);
+}
+
+.form {
+  display: flex;
+  gap: 12px;
+  align-items: flex-end;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid var(--border);
+  background: var(--panel);
+}
+
+.group {
+  flex: 1;
+  margin: 0;
+}
+
+.input {
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 14px 16px;
+  min-height: 52px;
+  width: 100%;
+  background: #fff;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #93c5fd;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
+.button {
+  padding: 10px 16px;
+  border-radius: 8px;
+  border: 1px solid #93c5fd;
+  background: #3b82f6;
+  color: #fff;
+  font-weight: 600;
+}

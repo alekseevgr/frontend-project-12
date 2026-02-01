@@ -7,6 +7,7 @@ import routes from "../../utils/routes";
 
 import { useDispatch } from "react-redux";
 import { setCredentials } from "../../slices/authSlice";
+import styles from "./StartPage.module.css";
 
 const LoginPage = () => {
   const dispatch = useDispatch();
@@ -45,10 +46,14 @@ const LoginPage = () => {
     },
   });
 
+  const isInvalid = Boolean(errorPassword);
+
   return (
-    <Form onSubmit={formik.handleSubmit}>
-      <Form.Group className="mb-3">
-        <Form.Label htmlFor="username">Username</Form.Label>
+    <Form onSubmit={formik.handleSubmit} className={styles.form}>
+      <Form.Group className={styles.formGroup}>
+        <Form.Label htmlFor="username" className={styles.label}>
+          Username
+        </Form.Label>
 
         <Form.Control
           id="username"
@@ -57,11 +62,14 @@ const LoginPage = () => {
           value={formik.values.username}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
-          isInvalid={Boolean(errorPassword)}
+          className={`${styles.input} ${isInvalid ? styles.inputInvalid : ""}`}
+          isInvalid={isInvalid}
         />
       </Form.Group>
-      <Form.Group className="mb-3">
-        <Form.Label htmlFor="password">Password</Form.Label>
+      <Form.Group className={styles.formGroup}>
+        <Form.Label htmlFor="password" className={styles.label}>
+          Password
+        </Form.Label>
 
         <Form.Control
           id="password"
@@ -70,14 +78,20 @@ const LoginPage = () => {
           value={formik.values.password}
           onChange={formik.handleChange}
           onBlur={formik.handleBlur}
-          isInvalid={Boolean(errorPassword)}
+          className={`${styles.input} ${isInvalid ? styles.inputInvalid : ""}`}
+          isInvalid={isInvalid}
         />
-        <Form.Control.Feedback type="invalid">
+        <Form.Control.Feedback
+          type="invalid"
+          className={styles.invalidFeedback}
+        >
           The username or password is incorrect
         </Form.Control.Feedback>
       </Form.Group>
 
-      <Button type="submit">Submit</Button>
+      <Button type="submit" className={styles.button}>
+        Submit
+      </Button>
     </Form>
   );
 };

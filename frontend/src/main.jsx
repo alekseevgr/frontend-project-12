@@ -3,7 +3,8 @@ import ReactDOM from "react-dom/client";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { Provider } from "react-redux";
 
-import "./index.css";
+import "./global.module.css";
+
 import App from "./App.jsx";
 import LoginPage from "./components/startPage/LoginPage.jsx";
 import NotFound from "./components/startPage/NotFound.jsx";

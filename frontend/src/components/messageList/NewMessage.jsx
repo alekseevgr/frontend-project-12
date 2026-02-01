@@ -2,8 +2,9 @@ import { useFormik } from "formik";
 import { Button, Form } from "react-bootstrap";
 import { useSelector } from "react-redux";
 
-import routes from "../utils/routes";
+import routes from "../../utils/routes";
 import axios from "axios";
+import styles from "./MessageList.module.css";
 
 //{ id: '1', body: 'text message', channelId: '1', username: 'admin }, ...]
 const NewMessage = () => {
@@ -38,8 +39,8 @@ const NewMessage = () => {
   });
 
   return (
-    <Form onSubmit={formik.handleSubmit} className="new-message">
-      <Form.Group className="new-message__group">
+    <Form onSubmit={formik.handleSubmit} className={styles.form}>
+      <Form.Group className={styles.group}>
         
         <Form.Control
           id="message"
@@ -47,12 +48,12 @@ const NewMessage = () => {
           type="text"
           value={formik.values.message}
           onChange={formik.handleChange}
-          className="new-message__input"
+          className={styles.input}
           placeholder="Type a message..."
         />
       </Form.Group>
 
-      <Button type="submit" className="new-message__button">
+      <Button type="submit" className={styles.button}>
         Send
       </Button>
     </Form>
