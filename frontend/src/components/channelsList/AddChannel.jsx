@@ -4,27 +4,36 @@ import { Modal, Form, Button } from "react-bootstrap";
 import axios from "axios";
 import routes from "../../utils/routes";
 import { useDispatch, useSelector } from "react-redux";
+import { useMemo } from "react";
 import { setActiveChannel } from "../../slices/channelsSlice";
 import * as yup from "yup";
 import styles from "./Channels.module.css";
+
+import { useTranslation } from "react-i18next";
 
 const AddChannel = ({ show, onHide }) => {
   const token = useSelector((state) => state.auth.token);
   const channels = useSelector((state) => state.channels.items);
   const dispatch = useDispatch();
 
-  const validationSchema = yup.object({
-    name: yup
-      .string()
-      .trim()
-      .min(3, "Минимум 3 символа")
-      .max(20, "Максимум 20 символов")
-      .required("Обязательно")
-      .test("unique", "Имя канала должно быть уникальным", (value) => {
-        const name = value?.trim();
-        return !channels.some((c) => c.name === name);
+  const { t } = useTranslation();
+
+  const validationSchema = useMemo(
+    () =>
+      yup.object({
+        name: yup
+          .string()
+          .trim()
+          .min(3, t("channels.minSymbols"))
+          .max(20, t("channels.maxSymbols"))
+          .required(t("channels.required"))
+          .test("unique", t("channels.unique"), (value) => {
+            const name = value?.trim();
+            return !channels.some((c) => c.name === name);
+          }),
       }),
-  });
+    [t, channels],
+  );
 
   const inputRef = useRef(null);
   useEffect(() => {
@@ -66,7 +75,7 @@ const AddChannel = ({ show, onHide }) => {
   return (
     <Modal show={show} onHide={onHide} centered>
       <Modal.Header closeButton>
-        <Modal.Title>Create channel</Modal.Title>
+        <Modal.Title>{t("channels.createChannel")}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={formik.handleSubmit} className={styles.form}>
@@ -76,7 +85,7 @@ const AddChannel = ({ show, onHide }) => {
               name="name"
               value={formik.values.name}
               onChange={formik.handleChange}
-              placeholder="type name channel"
+              placeholder={t("channels.typeNameChannel")}
               className={`${styles.input} ${isInvalid ? styles.inputInvalid : ""}`}
               isInvalid={isInvalid}
             />
@@ -84,7 +93,7 @@ const AddChannel = ({ show, onHide }) => {
               type="invalid"
               className={styles.invalidFeedback}
             >
-              {formik.errors.name}
+              {formik.touched.name ? formik.errors.name : null}
             </Form.Control.Feedback>
           </Form.Group>
 
@@ -93,14 +102,14 @@ const AddChannel = ({ show, onHide }) => {
             disabled={formik.isSubmitting}
             className={styles.button}
           >
-            Создать канал
+            {t("channels.createChannel")}
           </Button>
           <Button
             type="button"
             className={styles.button}
             onClick={handleCancel}
           >
-            Отменить
+            {t("channels.reject")}
           </Button>
         </Form>
       </Modal.Body>

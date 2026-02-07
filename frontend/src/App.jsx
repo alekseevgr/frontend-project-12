@@ -42,18 +42,11 @@ const App = () => {
     })();
   }, [token, dispatch]);
 
-  useEffect(() => {
-    console.log("channels:", channels);
-    console.log("messages:", messages);
-  }, [channels, messages]);
-
   return (
     <>
       <header className={styles.appHeader}>
         <span>Hexlet chat</span>
-        <button
-        type="button"
-        onClick={() => dispatch(logout())}>
+        <button type="button" onClick={() => dispatch(logout())}>
           Выйти
         </button>
       </header>

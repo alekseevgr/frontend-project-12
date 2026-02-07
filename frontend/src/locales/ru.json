@@ -1,0 +1,30 @@
+{
+  "chatName": "Hexlet chat",
+  "channels": {
+    "minSymbols": "Минимум 3 символа",
+    "maxSymbols": "Максимум 20 символов",
+    "required": "Обязательно",
+    "unique": "Имя канала должно быть уникальным",
+    "createChannel": "Создать канал",
+    "reject": "Отменить",
+    "edit": "Редактировать",
+    "delete": "Удалить",
+    "deleteChannel": "Удалить канал",
+    "changeName": "Изменить имя канала",
+    "typeNameChannel": "Напишите имя канала",
+    "typeNewNameChannel": "Напишите новое имя канала",
+    "menu": "Список каналов"
+  },
+  "login": {
+    "name": "Имя",
+    "password": "Пароль",
+    "enter": "Войти",
+    "registration": "Зарегистрироваться",
+    "equalPassword": "Пароли не совпадают",
+    "nameTaken": "Имя уже занято"
+  },
+  "app": {
+    "exit": "Выйти",
+    "incorrectPath": "Неверный путь, пожалуйста вернитесь"
+  }
+}

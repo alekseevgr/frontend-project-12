@@ -7,6 +7,7 @@ import axios from "axios";
 import { useEffect, useRef } from "react";
 import * as yup from "yup";
 import styles from "./Channels.module.css";
+import { useTranslation } from "react-i18next";
 
 const RenameChannel = ({ show, onHide, channelId }) => {
   const token = useSelector((state) => state.auth.token);
@@ -14,15 +15,16 @@ const RenameChannel = ({ show, onHide, channelId }) => {
     state.channels.items.find((c) => c.id === channelId),
   );
   const channels = useSelector((state) => state.channels.items);
+  const { t } = useTranslation();
 
   const validationSchema = yup.object({
     name: yup
       .string()
       .trim()
-      .min(3, "Минимум 3 символа")
-      .max(20, "Максимум 20 символов")
-      .required("Обязательно")
-      .test("unique", "Имя канала должно быть уникальным", (value) => {
+      .min(3, t("channels.minSymbols"))
+      .max(20, t("channels.maxSymbols"))
+      .required(t("channels.required"))
+      .test("unique", t("channels.unique"), (value) => {
         const name = value?.trim();
         return !channels.some((c) => c.name === name && c.id !== channelId);
       }),
@@ -65,7 +67,7 @@ const RenameChannel = ({ show, onHide, channelId }) => {
   return (
     <Modal show={show} onHide={onHide} centered>
       <Modal.Header closeButton>
-        <Modal.Title>Rename channel</Modal.Title>
+        <Modal.Title>{t("channels.changeName")}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={formik.handleSubmit} className={styles.form}>
@@ -75,7 +77,7 @@ const RenameChannel = ({ show, onHide, channelId }) => {
               name="name"
               value={formik.values.name}
               onChange={formik.handleChange}
-              placeholder="type new name channel"
+              placeholder={t("channels.typeNewNameChannel")}
               className={`${styles.input} ${isInvalid ? styles.inputInvalid : ""}`}
               isInvalid={isInvalid}
             />
@@ -83,7 +85,7 @@ const RenameChannel = ({ show, onHide, channelId }) => {
               type="invalid"
               className={styles.invalidFeedback}
             >
-              {formik.errors.name}
+              {formik.touched.name ? formik.errors.name : null}
             </Form.Control.Feedback>
           </Form.Group>
 
@@ -92,14 +94,14 @@ const RenameChannel = ({ show, onHide, channelId }) => {
             disabled={formik.isSubmitting}
             className={styles.button}
           >
-            Изменить имя канала
+            {t("channels.changeName")}
           </Button>
-           <Button
+          <Button
             type="button"
             onClick={handleCancel}
             className={styles.button}
           >
-            Отменить
+            {t("channels.reject")}
           </Button>
         </Form>
       </Modal.Body>

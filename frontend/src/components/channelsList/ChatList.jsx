@@ -2,9 +2,10 @@ import { useSelector, useDispatch } from "react-redux";
 import { setActiveChannel } from "../../slices/channelsSlice";
 import { useEffect, useRef, useState } from "react";
 import AddChannel from "./AddChannel.jsx";
-import RemoveСhannel from "./RemoveChannel.jsx";
+import RemoveChannel from "./RemoveChannel.jsx";
 import RenameChannel from "./RenameChannel.jsx";
 import styles from "./Channels.module.css";
+import { useTranslation } from "react-i18next";
 
 const ChatList = ({ channels }) => {
   const dispatch = useDispatch();
@@ -19,6 +20,7 @@ const ChatList = ({ channels }) => {
 
   const [openedMenuId, setOpenedMenuId] = useState(null);
   const rootRef = useRef(null);
+  const { t } = useTranslation();
 
   useEffect(() => {
     const onDocClick = (e) => {
@@ -51,7 +53,7 @@ const ChatList = ({ channels }) => {
                 <button
                   type="button"
                   className={styles.kebabBtn}
-                  aria-label="Channel menu"
+                  aria-label={t("channels.menu")}
                   onClick={() =>
                     setOpenedMenuId((prev) => (prev === id ? null : id))
                   }
@@ -69,7 +71,7 @@ const ChatList = ({ channels }) => {
                         openRenameModal(id);
                       }}
                     >
-                      Редактировать
+                      {t("channels.edit")}
                     </button>
 
                     {removable && (
@@ -81,7 +83,7 @@ const ChatList = ({ channels }) => {
                           openRemoveModal(id);
                         }}
                       >
-                        Удалить
+                        {t("channels.delete")}
                       </button>
                     )}
                   </div>
@@ -93,15 +95,19 @@ const ChatList = ({ channels }) => {
       </ul>
 
       {modal.type === "adding" && <AddChannel show onHide={hideModal} />}
-      {modal.type === "renaming" && <RenameChannel show onHide={hideModal} channelId={modal.channelId}/>}
-      {modal.type === "removing" && <RemoveСhannel show onHide={hideModal} channelId={modal.channelId}/>}
+      {modal.type === "renaming" && (
+        <RenameChannel show onHide={hideModal} channelId={modal.channelId} />
+      )}
+      {modal.type === "removing" && (
+        <RemoveChannel show onHide={hideModal} channelId={modal.channelId} />
+      )}
 
       <button
         type="button"
         className={styles.addChannelBtn}
         onClick={openAddModal}
       >
-        Add new channel
+        {t("channels.createChannel")}
       </button>
     </div>
   );
