@@ -11,8 +11,9 @@ import styles from "./Channels.module.css";
 const RenameChannel = ({ show, onHide, channelId }) => {
   const token = useSelector((state) => state.auth.token);
   const channel = useSelector((state) =>
-  state.channels.items.find((c) => c.id === channelId)
-);
+    state.channels.items.find((c) => c.id === channelId),
+  );
+  const channels = useSelector((state) => state.channels.items);
 
   const validationSchema = yup.object({
     name: yup
@@ -20,7 +21,11 @@ const RenameChannel = ({ show, onHide, channelId }) => {
       .trim()
       .min(3, "Минимум 3 символа")
       .max(20, "Максимум 20 символов")
-      .required("Обязательно"),
+      .required("Обязательно")
+      .test("unique", "Имя канала должно быть уникальным", (value) => {
+        const name = value?.trim();
+        return !channels.some((c) => c.name === name && c.id !== channelId);
+      }),
   });
 
   const inputRef = useRef(null);
@@ -53,6 +58,10 @@ const RenameChannel = ({ show, onHide, channelId }) => {
     },
   });
   const isInvalid = formik.touched.name && Boolean(formik.errors.name);
+  const handleCancel = () => {
+    formik.resetForm();
+    onHide();
+  };
   return (
     <Modal show={show} onHide={onHide} centered>
       <Modal.Header closeButton>
@@ -83,7 +92,14 @@ const RenameChannel = ({ show, onHide, channelId }) => {
             disabled={formik.isSubmitting}
             className={styles.button}
           >
-            Rename channel
+            Изменить имя канала
+          </Button>
+           <Button
+            type="button"
+            onClick={handleCancel}
+            className={styles.button}
+          >
+            Отменить
           </Button>
         </Form>
       </Modal.Body>

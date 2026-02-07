@@ -10,6 +10,7 @@ import ChatList from "./components/channelsList/ChatList";
 import MessageList from "./components/messageList/MessageList";
 import NewMessage from "./components/messageList/NewMessage";
 import styles from "./App.module.css";
+import { logout } from "./slices/authSlice";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -48,7 +49,14 @@ const App = () => {
 
   return (
     <>
-      <header className={styles.appHeader}>Hexlet chat by alekseevgr</header>
+      <header className={styles.appHeader}>
+        <span>Hexlet chat</span>
+        <button
+        type="button"
+        onClick={() => dispatch(logout())}>
+          Выйти
+        </button>
+      </header>
 
       <main className={styles.appMain}>
         <aside className={styles.channels}>

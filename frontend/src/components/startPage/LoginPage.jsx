@@ -47,12 +47,16 @@ const LoginPage = () => {
   });
 
   const isInvalid = Boolean(errorPassword);
+    const handleClick = () => {
+    navigate("/signup", { replace: true });
+
+  };
 
   return (
     <Form onSubmit={formik.handleSubmit} className={styles.form}>
       <Form.Group className={styles.formGroup}>
         <Form.Label htmlFor="username" className={styles.label}>
-          Username
+          Имя
         </Form.Label>
 
         <Form.Control
@@ -68,7 +72,7 @@ const LoginPage = () => {
       </Form.Group>
       <Form.Group className={styles.formGroup}>
         <Form.Label htmlFor="password" className={styles.label}>
-          Password
+          Пароль
         </Form.Label>
 
         <Form.Control
@@ -90,7 +94,10 @@ const LoginPage = () => {
       </Form.Group>
 
       <Button type="submit" className={styles.button}>
-        Submit
+        Войти
+      </Button>
+      <Button type="button" onClick={handleClick} className={styles.button}>
+        Зарегистрироваться
       </Button>
     </Form>
   );

@@ -25,6 +25,9 @@ const RemoveСhannel = ({ show, onHide, channelId }) => {
         console.error(e);
       });
   };
+  const handleCancel = () => {
+    onHide();
+  };
 
   return (
     <Modal show={show} onHide={onHide}>
@@ -34,8 +37,12 @@ const RemoveСhannel = ({ show, onHide, channelId }) => {
       <Modal.Body>
         <Form onSubmit={handleSubmit} className={styles.form}>
           <Button type="submit" className={styles.button}>
-            Delete Channel
+            Удалить канал
           </Button>
+          <Button type="button" onClick={handleCancel} className={styles.button}>
+            Отменить
+          </Button>
+
         </Form>
       </Modal.Body>
     </Modal>

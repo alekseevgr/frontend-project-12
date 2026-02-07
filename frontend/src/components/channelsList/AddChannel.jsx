@@ -10,6 +10,7 @@ import styles from "./Channels.module.css";
 
 const AddChannel = ({ show, onHide }) => {
   const token = useSelector((state) => state.auth.token);
+  const channels = useSelector((state) => state.channels.items);
   const dispatch = useDispatch();
 
   const validationSchema = yup.object({
@@ -18,7 +19,11 @@ const AddChannel = ({ show, onHide }) => {
       .trim()
       .min(3, "Минимум 3 символа")
       .max(20, "Максимум 20 символов")
-      .required("Обязательно"),
+      .required("Обязательно")
+      .test("unique", "Имя канала должно быть уникальным", (value) => {
+        const name = value?.trim();
+        return !channels.some((c) => c.name === name);
+      }),
   });
 
   const inputRef = useRef(null);
@@ -53,6 +58,10 @@ const AddChannel = ({ show, onHide }) => {
   });
   // [{ id: '1', name: 'general', removable: false }, ...]
   const isInvalid = formik.touched.name && Boolean(formik.errors.name);
+  const handleCancel = () => {
+    formik.resetForm();
+    onHide();
+  };
 
   return (
     <Modal show={show} onHide={onHide} centered>
@@ -84,7 +93,14 @@ const AddChannel = ({ show, onHide }) => {
             disabled={formik.isSubmitting}
             className={styles.button}
           >
-            Create channel
+            Создать канал
+          </Button>
+          <Button
+            type="button"
+            className={styles.button}
+            onClick={handleCancel}
+          >
+            Отменить
           </Button>
         </Form>
       </Modal.Body>

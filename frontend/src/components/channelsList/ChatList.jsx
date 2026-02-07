@@ -42,7 +42,7 @@ const ChatList = ({ channels }) => {
               role="button"
               onClick={() => dispatch(setActiveChannel(id))}
             >
-              <span className={styles.channelName}>#{name}</span>
+              <span className={styles.channelName}># {name}</span>
 
               <div
                 className={styles.channelActions}
