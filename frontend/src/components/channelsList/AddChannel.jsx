@@ -83,7 +83,7 @@ const AddChannel = ({ show, onHide }) => {
         });
     },
   });
-  // [{ id: '1', name: 'general', removable: false }, ...]
+
   const isInvalid = formik.touched.name && Boolean(formik.errors.name);
   const handleCancel = () => {
     formik.resetForm();

@@ -10,16 +10,13 @@ export const socketMiddleware = () => {
       store.dispatch(addMessage(payload));
     });
     socket.on("newChannel", (payload) => {
-      console.log(payload); // { id: 6, name: "new channel", removable: true }
       store.dispatch(addChannel(payload));
     });
     socket.on("removeChannel", (payload) => {
-      console.log(payload); // { id: 6 };
-      store.dispatch(removeChannel(payload))
+      store.dispatch(removeChannel(payload));
     });
     socket.on("renameChannel", (payload) => {
-      console.log(payload); // { id: 7, name: "new name channel", removable: true }
-      store.dispatch(renameChannel(payload))
+      store.dispatch(renameChannel(payload));
     });
 
     return (next) => (action) => {

@@ -16,7 +16,8 @@
   },
   "errors": {
     "network": "Network error. Check your connection.",
-    "unknown": "Something went wrong"
+    "unknown": "Something went wrong",
+    "profanity": "Incorrect name, please type correct name"
   },
   "channels": {
     "unique": "Channel name must be unique",
