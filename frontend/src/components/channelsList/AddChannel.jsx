@@ -10,6 +10,7 @@ import * as yup from "yup";
 import styles from "./Channels.module.css";
 
 import { useTranslation } from "react-i18next";
+import { toast } from "react-toastify";
 
 const AddChannel = ({ show, onHide }) => {
   const token = useSelector((state) => state.auth.token);
@@ -57,11 +58,12 @@ const AddChannel = ({ show, onHide }) => {
         })
         .then(({ data }) => {
           dispatch(setActiveChannel(data.id));
+          toast.success(t("toast.created"));
           resetForm();
           onHide();
         })
         .catch((e) => {
-          console.error(e);
+          toast.error(!e.response ? t("errors.network") : t("errors.unknown"));
         });
     },
   });
@@ -74,7 +76,7 @@ const AddChannel = ({ show, onHide }) => {
 
   return (
     <Modal show={show} onHide={onHide} centered>
-      <Modal.Header closeButton>
+      <Modal.Header>
         <Modal.Title>{t("channels.createChannel")}</Modal.Title>
       </Modal.Header>
       <Modal.Body>

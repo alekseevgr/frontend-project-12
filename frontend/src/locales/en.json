@@ -7,6 +7,15 @@
     "minPassword": "Minimum 6 symbols",
     "equalPassword": "Passwords do not match"
   },
+  "toast": {
+    "created": "Channel created",
+    "renaming": "Channel renamed",
+    "removing": "Channel removed"
+  },
+  "errors": {
+    "network": "Network error. Check your connection.",
+    "unknown": "Something went wrong"
+  },
   "channels": {
     "unique": "Channel name must be unique",
     "createChannel": "Create channel",

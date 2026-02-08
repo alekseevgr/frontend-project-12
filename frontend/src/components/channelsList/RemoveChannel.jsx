@@ -5,6 +5,7 @@ import axios from "axios";
 import { setActiveChannel } from "../../slices/channelsSlice";
 import styles from "./Channels.module.css";
 import { useTranslation } from "react-i18next";
+import { toast } from "react-toastify";
 
 const RemoveChannel = ({ show, onHide, channelId }) => {
   const token = useSelector((state) => state.auth.token);
@@ -22,10 +23,11 @@ const RemoveChannel = ({ show, onHide, channelId }) => {
       })
       .then(() => {
         dispatch(setActiveChannel("1"));
+        toast.success(t("toast.removing"));
         onHide();
       })
       .catch((e) => {
-        console.error(e);
+        toast.error(!e.response ? t("errors.network") : t("errors.unknown"));
       });
   };
   const handleCancel = () => {
@@ -34,7 +36,7 @@ const RemoveChannel = ({ show, onHide, channelId }) => {
 
   return (
     <Modal show={show} onHide={onHide}>
-      <Modal.Header closeButton>
+      <Modal.Header>
         <Modal.Title>{t("channels.deleteChannel")}</Modal.Title>
       </Modal.Header>
       <Modal.Body>

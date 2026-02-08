@@ -10,6 +10,8 @@ import LoginPage from "./components/startPage/LoginPage.jsx";
 import NotFound from "./components/startPage/NotFound.jsx";
 import CheckAuth from "./components/startPage/CheckAuth.jsx";
 import RegistrationPage from "./components/startPage/RegistrationPage.jsx";
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 
 import "./i18n";
 
@@ -34,6 +36,7 @@ ReactDOM.createRoot(root).render(
           <Route path="/signup" element={<RegistrationPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
+        <ToastContainer />
       </BrowserRouter>
     </Provider>
   </StrictMode>,

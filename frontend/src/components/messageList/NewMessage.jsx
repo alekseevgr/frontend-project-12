@@ -6,6 +6,7 @@ import routes from "../../utils/routes";
 import axios from "axios";
 import styles from "./MessageList.module.css";
 import { useTranslation } from "react-i18next";
+import { toast } from "react-toastify";
 
 //{ id: '1', body: 'text message', channelId: '1', username: 'admin }, ...]
 const NewMessage = () => {
@@ -36,6 +37,7 @@ const NewMessage = () => {
           resetForm();
         })
         .catch((e) => {
+          toast.error(!e.response ? t("errors.network") : t("errors.unknown"));
           console.error(e);
         });
     },

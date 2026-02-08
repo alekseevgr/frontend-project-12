@@ -9,6 +9,7 @@ import styles from "./StartPage.module.css";
 import { useDispatch } from "react-redux";
 import { setCredentials } from "../../slices/authSlice";
 import { useTranslation } from "react-i18next";
+import { toast } from "react-toastify";
 
 const RegistrationPage = () => {
   const navigate = useNavigate();
@@ -63,7 +64,7 @@ const RegistrationPage = () => {
           formik.setFieldError("username", t("login.nameTaken"));
           return;
         }
-        console.error(err);
+        toast.error(!err.response ? t("errors.network") : t("errors.unknown"));
       }
     },
   });

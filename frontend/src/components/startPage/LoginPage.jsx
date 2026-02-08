@@ -9,6 +9,7 @@ import { useDispatch } from "react-redux";
 import { setCredentials } from "../../slices/authSlice";
 import styles from "./StartPage.module.css";
 import { useTranslation } from "react-i18next";
+import { toast } from "react-toastify";
 
 const LoginPage = () => {
   const dispatch = useDispatch();
@@ -39,8 +40,11 @@ const LoginPage = () => {
       } catch (err) {
         if (err.response?.status === 401) {
           setErrorPassword(true);
+        } else {
+          toast.error(
+            !err.response ? t("errors.network") : t("errors.unknown"),
+          );
         }
-        console.error(err);
       }
     },
   });

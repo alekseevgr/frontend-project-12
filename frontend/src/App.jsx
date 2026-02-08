@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import React, { useEffect } from "react";
 import axios from "axios";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -11,12 +11,14 @@ import MessageList from "./components/messageList/MessageList";
 import NewMessage from "./components/messageList/NewMessage";
 import styles from "./App.module.css";
 import { logout } from "./slices/authSlice";
+import { useTranslation } from "react-i18next";
 
 const App = () => {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.auth.token);
   const channels = useSelector((state) => state.channels.items);
   const messages = useSelector((state) => state.messages.items);
+  const { t } = useTranslation();
 
   async function getChannels(token) {
     const { data } = await axios.get(routes.channels(), {
@@ -45,9 +47,9 @@ const App = () => {
   return (
     <>
       <header className={styles.appHeader}>
-        <span>Hexlet chat</span>
+        <span>{t("chatName")}</span>
         <button type="button" onClick={() => dispatch(logout())}>
-          Выйти
+          {t("app.exit")}
         </button>
       </header>
 

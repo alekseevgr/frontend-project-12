@@ -8,6 +8,7 @@ import { useEffect, useRef } from "react";
 import * as yup from "yup";
 import styles from "./Channels.module.css";
 import { useTranslation } from "react-i18next";
+import { toast } from "react-toastify";
 
 const RenameChannel = ({ show, onHide, channelId }) => {
   const token = useSelector((state) => state.auth.token);
@@ -51,11 +52,12 @@ const RenameChannel = ({ show, onHide, channelId }) => {
           },
         })
         .then(() => {
+          toast.success(t("toast.renaming"));
           resetForm();
           onHide();
         })
         .catch((e) => {
-          console.error(e);
+          toast.error(!e.response ? t("errors.network") : t("errors.unknown"));
         });
     },
   });
@@ -66,7 +68,7 @@ const RenameChannel = ({ show, onHide, channelId }) => {
   };
   return (
     <Modal show={show} onHide={onHide} centered>
-      <Modal.Header closeButton>
+      <Modal.Header>
         <Modal.Title>{t("channels.changeName")}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
