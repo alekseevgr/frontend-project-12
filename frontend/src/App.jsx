@@ -22,10 +22,6 @@ const App = () => {
   const { t } = useTranslation();
   const rollbar = useRollbar();
 
-  useEffect(() => {
-    rollbar.error("PROD TEST FROM APP");
-  }, [rollbar]);
-
   async function getChannels(token) {
     const { data } = await axios.get(routes.channels(), {
       headers: { Authorization: `Bearer ${token}` },
