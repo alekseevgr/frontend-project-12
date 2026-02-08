@@ -6,10 +6,12 @@ import { setActiveChannel } from "../../slices/channelsSlice";
 import styles from "./Channels.module.css";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
+import { useRollbar } from "@rollbar/react";
 
 const RemoveChannel = ({ show, onHide, channelId }) => {
   const token = useSelector((state) => state.auth.token);
   const dispatch = useDispatch();
+  const rollbar = useRollbar();
 
   const { t } = useTranslation();
 
@@ -27,6 +29,9 @@ const RemoveChannel = ({ show, onHide, channelId }) => {
         onHide();
       })
       .catch((e) => {
+        rollbar.error("Remove channel failed", e, {
+          status: e?.response?.status,
+        });
         toast.error(!e.response ? t("errors.network") : t("errors.unknown"));
       });
   };

@@ -13,6 +13,8 @@ import RegistrationPage from "./components/startPage/RegistrationPage.jsx";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import filter from "leo-profanity";
+import { Provider as RollbarProvider, ErrorBoundary } from "@rollbar/react";
+import { rollbarConfig } from "./utils/rollbar.js";
 
 import "./i18n";
 
@@ -25,23 +27,27 @@ filter.add(filter.getDictionary("ru"));
 
 ReactDOM.createRoot(root).render(
   <StrictMode>
-    <Provider store={store}>
-      <BrowserRouter>
-        <ToastContainer />
-        <Routes>
-          <Route
-            path="/"
-            element={
-              <CheckAuth>
-                <App />
-              </CheckAuth>
-            }
-          />
-          <Route path="/login" element={<LoginPage />} />
-          <Route path="/signup" element={<RegistrationPage />} />
-          <Route path="*" element={<NotFound />} />
-        </Routes>
-      </BrowserRouter>
-    </Provider>
+    <RollbarProvider config={rollbarConfig}>
+      <ErrorBoundary>
+        <Provider store={store}>
+          <BrowserRouter>
+            <ToastContainer />
+            <Routes>
+              <Route
+                path="/"
+                element={
+                  <CheckAuth>
+                    <App />
+                  </CheckAuth>
+                }
+              />
+              <Route path="/login" element={<LoginPage />} />
+              <Route path="/signup" element={<RegistrationPage />} />
+              <Route path="*" element={<NotFound />} />
+            </Routes>
+          </BrowserRouter>
+        </Provider>
+      </ErrorBoundary>
+    </RollbarProvider>
   </StrictMode>,
 );

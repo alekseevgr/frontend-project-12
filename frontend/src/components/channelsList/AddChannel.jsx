@@ -8,6 +8,7 @@ import { useMemo } from "react";
 import { setActiveChannel } from "../../slices/channelsSlice";
 import * as yup from "yup";
 import styles from "./Channels.module.css";
+import { useRollbar } from "@rollbar/react";
 
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
@@ -17,6 +18,7 @@ const AddChannel = ({ show, onHide }) => {
   const token = useSelector((state) => state.auth.token);
   const channels = useSelector((state) => state.channels.items);
   const dispatch = useDispatch();
+  const rollbar = useRollbar();
 
   const { t } = useTranslation();
 
@@ -73,6 +75,10 @@ const AddChannel = ({ show, onHide }) => {
           onHide();
         })
         .catch((e) => {
+          rollbar.error("Create channel failed", e, {
+            channelName: name,
+            status: e?.response?.status,
+          });
           toast.error(!e.response ? t("errors.network") : t("errors.unknown"));
         });
     },

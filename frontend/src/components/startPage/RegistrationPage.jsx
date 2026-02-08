@@ -10,11 +10,13 @@ import { useDispatch } from "react-redux";
 import { setCredentials } from "../../slices/authSlice";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
+import { useRollbar } from "@rollbar/react";
 
 const RegistrationPage = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { t } = useTranslation();
+  const rollbar = useRollbar();
 
   const validationSchema = yup.object({
     username: yup
@@ -64,6 +66,9 @@ const RegistrationPage = () => {
           formik.setFieldError("username", t("login.nameTaken"));
           return;
         }
+        rollbar.error("Registration failed", err, {
+          username: values.username,
+        });
         toast.error(!err.response ? t("errors.network") : t("errors.unknown"));
       }
     },

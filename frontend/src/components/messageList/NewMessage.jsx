@@ -7,6 +7,7 @@ import axios from "axios";
 import styles from "./MessageList.module.css";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
+import { useRollbar } from "@rollbar/react";
 
 import filter from "leo-profanity";
 
@@ -17,6 +18,7 @@ const NewMessage = () => {
   const currentId = useSelector((state) => state.channels.activeChannelId);
 
   const { t } = useTranslation();
+  const rollbar = useRollbar();
 
   const formik = useFormik({
     initialValues: {
@@ -48,8 +50,14 @@ const NewMessage = () => {
           resetForm();
         })
         .catch((e) => {
+          rollbar.error("Send message failed", e, {
+            data: {
+              channelId: newMessage.channelId,
+              username: newMessage.username,
+            },
+            status: e?.response?.status,
+          });
           toast.error(!e.response ? t("errors.network") : t("errors.unknown"));
-          console.error(e);
         });
     },
   });

@@ -10,6 +10,7 @@ import styles from "./Channels.module.css";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 import filter from "leo-profanity";
+import { useRollbar } from "@rollbar/react";
 
 const RenameChannel = ({ show, onHide, channelId }) => {
   const token = useSelector((state) => state.auth.token);
@@ -18,6 +19,7 @@ const RenameChannel = ({ show, onHide, channelId }) => {
   );
   const channels = useSelector((state) => state.channels.items);
   const { t } = useTranslation();
+  const rollbar = useRollbar();
 
   const validationSchema = yup.object({
     name: yup
@@ -68,6 +70,10 @@ const RenameChannel = ({ show, onHide, channelId }) => {
           onHide();
         })
         .catch((e) => {
+          rollbar.error("Rename channel failed", e, {
+            nameChannel: name,
+            status: e?.response?.status,
+          });
           toast.error(!e.response ? t("errors.network") : t("errors.unknown"));
         });
     },

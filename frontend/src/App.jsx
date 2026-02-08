@@ -12,6 +12,7 @@ import NewMessage from "./components/messageList/NewMessage";
 import styles from "./App.module.css";
 import { logout } from "./slices/authSlice";
 import { useTranslation } from "react-i18next";
+import { useRollbar } from "@rollbar/react";
 
 const App = () => {
   const dispatch = useDispatch();
@@ -19,6 +20,7 @@ const App = () => {
   const channels = useSelector((state) => state.channels.items);
   const messages = useSelector((state) => state.messages.items);
   const { t } = useTranslation();
+  const rollbar = useRollbar();
 
   async function getChannels(token) {
     const { data } = await axios.get(routes.channels(), {
@@ -36,13 +38,21 @@ const App = () => {
 
   useEffect(() => {
     (async () => {
-      const channelsData = await getChannels(token);
-      const messagesData = await getMessages(token);
+      try {
+        const [channelsData, messagesData] = await Promise.all([
+          getChannels(token),
+          getMessages(token),
+        ]);
 
-      dispatch(setChannels(channelsData));
-      dispatch(setMessages(messagesData));
+        dispatch(setChannels(channelsData));
+        dispatch(setMessages(messagesData));
+      } catch (e) {
+        rollbar.error("Failed to load initial data", e, {
+          hasToken: Boolean(token),
+        });
+      }
     })();
-  }, [token, dispatch]);
+  }, [token, dispatch, rollbar, t]);
 
   return (
     <>

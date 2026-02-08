@@ -10,11 +10,13 @@ import { setCredentials } from "../../slices/authSlice";
 import styles from "./StartPage.module.css";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
+import { useRollbar } from "@rollbar/react";
 
 const LoginPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [errorPassword, setErrorPassword] = useState(false);
+  const rollbar = useRollbar();
 
   const { t } = useTranslation();
 
@@ -41,6 +43,7 @@ const LoginPage = () => {
         if (err.response?.status === 401) {
           setErrorPassword(true);
         } else {
+          rollbar.error("Login failed", err, { username: values.username });
           toast.error(
             !err.response ? t("errors.network") : t("errors.unknown"),
           );
