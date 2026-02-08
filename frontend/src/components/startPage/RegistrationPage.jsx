@@ -8,28 +8,30 @@ import * as yup from "yup";
 import styles from "./StartPage.module.css";
 import { useDispatch } from "react-redux";
 import { setCredentials } from "../../slices/authSlice";
+import { useTranslation } from "react-i18next";
 
 const RegistrationPage = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
+  const { t } = useTranslation();
 
   const validationSchema = yup.object({
     username: yup
       .string()
       .trim()
-      .min(3, "Минимум 3 символа")
-      .max(20, "Максимум 20 символов")
-      .required("Обязательно"),
+      .min(3, t("form.minSymbols"))
+      .max(20, t("form.maxSymbols"))
+      .required(t("form.required")),
     password: yup
       .string()
       .trim()
-      .min(6, "Минимум 6 символов")
-      .required("Обязательно"),
+      .min(6, t("form.minPassword"))
+      .required(t("form.required")),
     confirmPassword: yup
       .string()
       .trim()
-      .oneOf([yup.ref("password")], "Пароли не совпадают")
-      .required("Обязательно"),
+      .oneOf([yup.ref("password")], t("form.equalPassword"))
+      .required(t("form.required")),
   });
 
   const formik = useFormik({
@@ -42,7 +44,10 @@ const RegistrationPage = () => {
     onSubmit: async (values) => {
       try {
         const { username, password } = values;
-        const res = await axios.post(routes.signupPath(), { username, password });
+        const res = await axios.post(routes.signupPath(), {
+          username,
+          password,
+        });
 
         const token = res.data.token;
         const name = res.data.username;
@@ -55,7 +60,7 @@ const RegistrationPage = () => {
         navigate("/", { replace: true });
       } catch (err) {
         if (err.response?.status === 409) {
-          formik.setFieldError("username", "Имя уже занято");
+          formik.setFieldError("username", t("login.nameTaken"));
           return;
         }
         console.error(err);
@@ -73,7 +78,7 @@ const RegistrationPage = () => {
     <Form onSubmit={formik.handleSubmit} className={styles.form}>
       <Form.Group className={styles.formGroup}>
         <Form.Label htmlFor="username" className={styles.label}>
-          Username
+          {t("login.name")}
         </Form.Label>
 
         <Form.Control
@@ -90,12 +95,12 @@ const RegistrationPage = () => {
           type="invalid"
           className={styles.invalidFeedback}
         >
-          {formik.errors.username}
+          {formik.touched.username ? formik.errors.username : null}
         </Form.Control.Feedback>
       </Form.Group>
       <Form.Group className={styles.formGroup}>
         <Form.Label htmlFor="password" className={styles.label}>
-          Password
+          {t("login.password")}
         </Form.Label>
 
         <Form.Control
@@ -112,12 +117,12 @@ const RegistrationPage = () => {
           type="invalid"
           className={styles.invalidFeedback}
         >
-          {formik.errors.password}
+          {formik.touched.password ? formik.errors.password : null}
         </Form.Control.Feedback>
       </Form.Group>
       <Form.Group className={styles.formGroup}>
         <Form.Label htmlFor="confirmPassword" className={styles.label}>
-          Confirm Password
+          {t("login.confirmPassword")}
         </Form.Label>
 
         <Form.Control
@@ -134,12 +139,14 @@ const RegistrationPage = () => {
           type="invalid"
           className={styles.invalidFeedback}
         >
-          {formik.errors.confirmPassword}
+          {formik.touched.confirmPassword
+            ? formik.errors.confirmPassword
+            : null}
         </Form.Control.Feedback>
       </Form.Group>
 
       <Button type="submit" className={styles.button}>
-        Submit
+        {t("login.registration")}
       </Button>
     </Form>
   );

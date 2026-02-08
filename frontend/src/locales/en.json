@@ -1,9 +1,13 @@
 {
   "chatName": "Hexlet chat",
-  "channels": {
-    "minSymbols": "Minimum 3 characters",
-    "maxSymbols": "Maximum 20 characters",
+  "form": {
+    "minSymbols": "Minimum 3 symbols",
+    "maxSymbols": "Maximum 20 symbols",
     "required": "Required",
+    "minPassword": "Minimum 6 symbols",
+    "equalPassword": "Passwords do not match"
+  },
+  "channels": {
     "unique": "Channel name must be unique",
     "createChannel": "Create channel",
     "reject": "Cancel",
@@ -12,15 +16,21 @@
     "deleteChannel": "Delete channel",
     "changeName": "Rename channel",
     "typeNameChannel": "Type channel name",
-    "typeNewNameChannel": "Type a new channel name"
+    "typeNewNameChannel": "Type a new channel name",
+    "typeMessage": "Type a message...",
+    "menu": "List channel",
+    "send": "Send"
   },
   "login": {
     "name": "Name",
     "password": "Password",
     "enter": "Log in",
     "registration": "Sign up",
+    "confirmPassword": "Confirm password",
     "equalPassword": "Passwords do not match",
-    "nameTaken": "Name already taken"
+    "nameTaken": "Name already taken",
+    "invalidCreds": "The username or password is incorrect",
+    "invalidPath": " Incorrect path, please go"
   },
   "app": {
     "exit": "Log out",

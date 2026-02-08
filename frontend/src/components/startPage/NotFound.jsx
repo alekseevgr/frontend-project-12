@@ -1,12 +1,14 @@
 import { Link } from "react-router-dom";
 import styles from "./StartPage.module.css";
+import { useTranslation } from "react-i18next";
 
 const NotFound = () => {
+  const { t } = useTranslation();
   return (
     <div className={styles.root}>
-      <div>incorrect path, please go</div>
+      <div>{t("login.invalidPath")}</div>
       <Link className={styles.link} to="/">
-        chat
+        {t("chatName")}
       </Link>
     </div>
   );

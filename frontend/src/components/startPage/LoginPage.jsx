@@ -8,15 +8,14 @@ import routes from "../../utils/routes";
 import { useDispatch } from "react-redux";
 import { setCredentials } from "../../slices/authSlice";
 import styles from "./StartPage.module.css";
+import { useTranslation } from "react-i18next";
 
 const LoginPage = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const [errorPassword, setErrorPassword] = useState(false);
 
-  //const location = useLocation();
-
-  //const from = location.state?.from?.pathname || "/";
+  const { t } = useTranslation();
 
   const formik = useFormik({
     initialValues: {
@@ -32,7 +31,7 @@ const LoginPage = () => {
         dispatch(setCredentials({ token, name }));
 
         localStorage.setItem("userId", token);
-        localStorage.setItem('username', name)
+        localStorage.setItem("username", name);
 
         navigate("/", { replace: true });
 
@@ -47,16 +46,15 @@ const LoginPage = () => {
   });
 
   const isInvalid = Boolean(errorPassword);
-    const handleClick = () => {
+  const handleClick = () => {
     navigate("/signup", { replace: true });
-
   };
 
   return (
     <Form onSubmit={formik.handleSubmit} className={styles.form}>
       <Form.Group className={styles.formGroup}>
         <Form.Label htmlFor="username" className={styles.label}>
-          Имя
+          {t("login.name")}
         </Form.Label>
 
         <Form.Control
@@ -72,7 +70,7 @@ const LoginPage = () => {
       </Form.Group>
       <Form.Group className={styles.formGroup}>
         <Form.Label htmlFor="password" className={styles.label}>
-          Пароль
+          {t("login.password")}
         </Form.Label>
 
         <Form.Control
@@ -85,19 +83,21 @@ const LoginPage = () => {
           className={`${styles.input} ${isInvalid ? styles.inputInvalid : ""}`}
           isInvalid={isInvalid}
         />
-        <Form.Control.Feedback
-          type="invalid"
-          className={styles.invalidFeedback}
-        >
-          The username or password is incorrect
-        </Form.Control.Feedback>
+        {isInvalid ? (
+          <Form.Control.Feedback
+            type="invalid"
+            className={styles.invalidFeedback}
+          >
+            {t("login.invalidCreds")}
+          </Form.Control.Feedback>
+        ) : null}
       </Form.Group>
 
       <Button type="submit" className={styles.button}>
-        Войти
+        {t("login.enter")}
       </Button>
       <Button type="button" onClick={handleClick} className={styles.button}>
-        Зарегистрироваться
+        {t("login.registration")}
       </Button>
     </Form>
   );

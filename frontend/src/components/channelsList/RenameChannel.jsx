@@ -21,9 +21,9 @@ const RenameChannel = ({ show, onHide, channelId }) => {
     name: yup
       .string()
       .trim()
-      .min(3, t("channels.minSymbols"))
-      .max(20, t("channels.maxSymbols"))
-      .required(t("channels.required"))
+      .min(3, t("form.minSymbols"))
+      .max(20, t("form.maxSymbols"))
+      .required(t("form.required"))
       .test("unique", t("channels.unique"), (value) => {
         const name = value?.trim();
         return !channels.some((c) => c.name === name && c.id !== channelId);
