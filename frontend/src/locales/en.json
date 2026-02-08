@@ -10,7 +10,9 @@
   "toast": {
     "created": "Channel created",
     "renaming": "Channel renamed",
-    "removing": "Channel removed"
+    "removing": "Channel removed",
+    "profanityCleaned": "Your message has been filtered",
+    "profanity": "Incorrect channel name"
   },
   "errors": {
     "network": "Network error. Check your connection.",

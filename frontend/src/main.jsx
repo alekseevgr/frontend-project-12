@@ -12,6 +12,7 @@ import CheckAuth from "./components/startPage/CheckAuth.jsx";
 import RegistrationPage from "./components/startPage/RegistrationPage.jsx";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+import filter from "leo-profanity";
 
 import "./i18n";
 
@@ -19,10 +20,14 @@ import { store } from "./slices/store.js";
 
 const root = document.getElementById("root");
 
+filter.loadDictionary("en");
+filter.add(filter.getDictionary("ru"));
+
 ReactDOM.createRoot(root).render(
   <StrictMode>
     <Provider store={store}>
       <BrowserRouter>
+        <ToastContainer />
         <Routes>
           <Route
             path="/"
@@ -36,7 +41,6 @@ ReactDOM.createRoot(root).render(
           <Route path="/signup" element={<RegistrationPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
-        <ToastContainer />
       </BrowserRouter>
     </Provider>
   </StrictMode>,

@@ -9,6 +9,7 @@ import * as yup from "yup";
 import styles from "./Channels.module.css";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
+import filter from "leo-profanity";
 
 const RenameChannel = ({ show, onHide, channelId }) => {
   const token = useSelector((state) => state.auth.token);
@@ -39,12 +40,22 @@ const RenameChannel = ({ show, onHide, channelId }) => {
   }, [show]);
 
   const formik = useFormik({
+    enableReinitialize: true,
     initialValues: {
       name: channel?.name ?? "",
     },
     validationSchema,
-    onSubmit: (values, { resetForm }) => {
-      const newName = values;
+    onSubmit: (values, { resetForm, setFieldError, setSubmitting }) => {
+      const name = values.name.trim();
+
+      if (filter.check(name)) {
+        setFieldError("name", t("errors.profanity"));
+        toast.error(t("errors.profanity"));
+        setSubmitting(false);
+        return;
+      }
+
+      const newName = { name };
       return axios
         .patch(routes.editChannel(channelId), newName, {
           headers: {
@@ -78,7 +89,12 @@ const RenameChannel = ({ show, onHide, channelId }) => {
               ref={inputRef}
               name="name"
               value={formik.values.name}
-              onChange={formik.handleChange}
+              onChange={(e) => {
+                formik.handleChange(e);
+                if (formik.errors.name) {
+                  formik.setFieldError("name", undefined);
+                }
+              }}
               placeholder={t("channels.typeNewNameChannel")}
               className={`${styles.input} ${isInvalid ? styles.inputInvalid : ""}`}
               isInvalid={isInvalid}

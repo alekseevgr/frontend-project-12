@@ -8,6 +8,8 @@ import styles from "./MessageList.module.css";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 
+import filter from "leo-profanity";
+
 //{ id: '1', body: 'text message', channelId: '1', username: 'admin }, ...]
 const NewMessage = () => {
   const token = useSelector((state) => state.auth.token);
@@ -21,8 +23,17 @@ const NewMessage = () => {
       message: "",
     },
     onSubmit: (values, { resetForm }) => {
+      const raw = values.message.trim();
+      if (!raw) return;
+
+      const cleaned = filter.clean(raw);
+
+      if (cleaned !== raw) {
+        toast.info(t("toast.profanityCleaned"));
+      }
+
       const newMessage = {
-        body: values.message,
+        body: cleaned,
         channelId: currentId,
         username: currentName,
       };

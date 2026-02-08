@@ -11,6 +11,7 @@ import styles from "./Channels.module.css";
 
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
+import filter from "leo-profanity";
 
 const AddChannel = ({ show, onHide }) => {
   const token = useSelector((state) => state.auth.token);
@@ -48,8 +49,17 @@ const AddChannel = ({ show, onHide }) => {
       name: "",
     },
     validationSchema,
-    onSubmit: (values, { resetForm }) => {
-      const newChannel = values;
+    onSubmit: (values, { resetForm, setFieldError, setSubmitting }) => {
+      const name = values.name.trim();
+
+      if (filter.check(name)) {
+        setFieldError("name", t("errors.profanity"));
+        toast.error(t("errors.profanity"));
+        setSubmitting(false);
+        return;
+      }
+
+      const newChannel = { name };
       return axios
         .post(routes.channels(), newChannel, {
           headers: {
@@ -84,6 +94,7 @@ const AddChannel = ({ show, onHide }) => {
           <Form.Group className={styles.formGroup}>
             <Form.Control
               ref={inputRef}
+              id="name"
               name="name"
               value={formik.values.name}
               onChange={formik.handleChange}
