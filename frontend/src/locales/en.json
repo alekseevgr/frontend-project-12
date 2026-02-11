@@ -1,8 +1,7 @@
 {
   "chatName": "Hexlet chat",
   "form": {
-    "minSymbols": "From 3 to 20 characters",
-    "maxSymbols": "From 3 to 20 characters",
+    "symbolsRange": "From 3 to 20 characters",
     "required": "Required",
     "minPassword": "At least 6 characters",
     "equalPassword": "Passwords do not match"

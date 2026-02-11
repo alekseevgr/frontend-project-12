@@ -28,8 +28,8 @@ const AddChannel = ({ show, onHide }) => {
         name: yup
           .string()
           .trim()
-          .min(3, t("form.minSymbols"))
-          .max(20, t("form.maxSymbols"))
+          .min(3, t("form.symbolsRange"))
+          .max(20, t("form.symbolsRange"))
           .required(t("form.required"))
           .test("unique", t("channels.unique"), (value) => {
             const name = value?.trim();
