@@ -9,17 +9,15 @@ import { setMessages } from "./slices/messagesSlice";
 import ChatList from "./components/channelsList/ChatList";
 import MessageList from "./components/messageList/MessageList";
 import NewMessage from "./components/messageList/NewMessage";
-import styles from "./App.module.css";
-import { logout } from "./slices/authSlice";
-import { useTranslation } from "react-i18next";
+import styles from "./styles/App.module.css";
 import { useRollbar } from "@rollbar/react";
+import Header from "./utils/Header";
 
 const App = () => {
   const dispatch = useDispatch();
   const token = useSelector((state) => state.auth.token);
   const channels = useSelector((state) => state.channels.items);
   const messages = useSelector((state) => state.messages.items);
-  const { t } = useTranslation();
   const rollbar = useRollbar();
 
   async function getChannels(token) {
@@ -56,13 +54,6 @@ const App = () => {
 
   return (
     <>
-      <header className={styles.appHeader}>
-        <span>{t("chatName")}</span>
-        <button type="button" onClick={() => dispatch(logout())}>
-          {t("app.exit")}
-        </button>
-      </header>
-
       <main className={styles.appMain}>
         <aside className={styles.channels}>
           <ChatList channels={channels} activeChannelId={"1"} />
@@ -78,8 +69,6 @@ const App = () => {
           </div>
         </section>
       </main>
-
-      <footer />
     </>
   );
 };

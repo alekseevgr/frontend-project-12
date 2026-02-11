@@ -6,7 +6,7 @@ import axios from "axios";
 
 import { useEffect, useRef } from "react";
 import * as yup from "yup";
-import styles from "./Channels.module.css";
+import styles from "../../styles/Channels.module.css";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 import filter from "leo-profanity";
@@ -113,20 +113,23 @@ const RenameChannel = ({ show, onHide, channelId }) => {
             </Form.Control.Feedback>
           </Form.Group>
 
-          <Button
-            type="submit"
-            disabled={formik.isSubmitting}
-            className={styles.button}
-          >
-            {t("channels.changeName")}
-          </Button>
-          <Button
-            type="button"
-            onClick={handleCancel}
-            className={styles.button}
-          >
-            {t("channels.reject")}
-          </Button>
+          <div className={styles.formActions}>
+            <Button
+              type="button"
+              onClick={handleCancel}
+              className={styles.secondaryButton}
+            >
+              {t("channels.reject")}
+            </Button>
+
+            <Button
+              type="submit"
+              disabled={formik.isSubmitting}
+              className={styles.primaryButton}
+            >
+              {t("channels.changeName")}
+            </Button>
+          </div>
         </Form>
       </Modal.Body>
     </Modal>

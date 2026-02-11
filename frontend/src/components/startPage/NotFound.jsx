@@ -1,5 +1,5 @@
 import { Link } from "react-router-dom";
-import styles from "./StartPage.module.css";
+import styles from "../../styles/StartPage.module.css";
 import { useTranslation } from "react-i18next";
 
 const NotFound = () => {

@@ -1,0 +1,142 @@
+.center {
+  min-height: calc(100vh - 64px);
+  display: grid;
+  place-items: center;
+  padding: 24px 16px;
+}
+
+.card {
+  width: 100%;
+  max-width: 420px;
+  border: 1px solid #e5e7eb;
+  border-radius: 12px;
+  background: #ffffff;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+}
+
+.cardBody {
+  padding: 20px;
+}
+
+.content {
+  display: grid;
+  gap: 14px;
+}
+
+.title {
+  margin: 0;
+  font-size: 24px;
+  font-weight: 700;
+  text-align: center;
+  color: #111827;
+}
+
+.form {
+  display: grid;
+  gap: 12px;
+  width: 100%;
+}
+
+.formGroup {
+  margin: 0;
+}
+
+.field {
+  position: relative;
+}
+
+.input {
+  width: 100%;
+  min-height: 56px;
+  padding: 26px 12px 10px;
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  background: #fff;
+  color: var(--text);
+  line-height: 1.2;
+}
+
+.input::placeholder {
+  color: transparent;
+}
+
+.floatingLabel {
+  position: absolute;
+  left: 12px;
+  top: 18px;
+  font-size: 14px;
+  line-height: 1;
+  color: #6c757d;
+  pointer-events: none;
+  transition: 0.15s ease;
+  background: #fff;
+  padding: 0 4px;
+  transform-origin: left top;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #93c5fd;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
+}
+
+.input:focus+.floatingLabel,
+.input:not(:placeholder-shown)+.floatingLabel {
+  top: 8px;
+  font-size: 12px;
+}
+
+
+.inputInvalid {
+  border-color: #fca5a5 !important;
+  box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.15) !important;
+}
+
+.invalidFeedback {
+  display: block;
+  margin-top: 6px;
+  font-size: 12px;
+  color: #dc2626;
+}
+
+.primaryButton {
+  width: 100%;
+  min-height: 44px;
+  border-radius: 8px;
+  font-weight: 600;
+  background: #0d6efd;
+  border: 1px solid #0d6efd;
+  color: #ffffff;
+}
+
+.primaryButton:hover {
+  background: #0b5ed7;
+  border-color: #0b5ed7;
+}
+
+.actions {
+  display: grid;
+  gap: 10px;
+}
+
+.footerBlock {
+  margin-top: 12px;
+  text-align: center;
+  font-size: 14px;
+  color: #6b7280;
+}
+
+.footerLink {
+  border: 0;
+  background: transparent;
+  padding: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: #0d6efd;
+  cursor: pointer;
+}
+
+.footerLink:hover {
+  text-decoration: underline;
+}

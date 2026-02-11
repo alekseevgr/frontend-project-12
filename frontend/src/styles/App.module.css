@@ -1,0 +1,54 @@
+.appHeader {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  height: 56px;
+  padding: 0 16px;
+
+  border-bottom: 1px solid #e5e7eb;
+  background: #ffffff;
+}
+
+.appMain {
+  height: calc(100vh - 56px);
+
+  display: grid;
+  grid-template-columns: 280px 1fr;
+
+  gap: 16px;
+  padding: 16px;
+}
+
+.channels {
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background: #ffffff;
+
+  overflow: auto;
+  min-height: 0;
+}
+
+.chat {
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background: #ffffff;
+
+  display: grid;
+  grid-template-rows: 1fr auto;
+
+  overflow: hidden;
+  min-height: 0;
+}
+
+.messages {
+  overflow: auto;
+  padding: 16px;
+  min-height: 0;
+}
+
+.sendMessage {
+  border-top: 1px solid #e5e7eb;
+  padding: 12px 16px;
+  background: #ffffff;
+}

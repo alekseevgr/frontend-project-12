@@ -4,22 +4,24 @@
     "minSymbols": "Minimum 3 symbols",
     "maxSymbols": "Maximum 20 symbols",
     "required": "Required",
-    "minPassword": "Minimum 6 symbols",
+    "minPassword": "At least 6 characters",
     "equalPassword": "Passwords do not match"
   },
   "toast": {
     "created": "Channel created",
     "renaming": "Channel renamed",
-    "removing": "Channel removed",
+    "removing": "Channel deleted",
     "profanityCleaned": "Your message has been filtered",
     "profanity": "Incorrect channel name"
   },
   "errors": {
-    "network": "Network error. Check your connection.",
+    "network": "Connection error",
     "unknown": "Something went wrong",
     "profanity": "Incorrect name, please type correct name"
   },
   "channels": {
+    "channelName": "Channel name",
+    "manageChannel": "Manage channel",
     "unique": "Channel name must be unique",
     "createChannel": "Create channel",
     "reject": "Cancel",
@@ -34,15 +36,17 @@
     "send": "Send"
   },
   "login": {
-    "name": "Name",
+    "nickname": "Your nickname",
+    "name": "Username",
     "password": "Password",
-    "enter": "Log in",
-    "registration": "Sign up",
+    "enter": "Login",
+    "registration": "Register",
+    "noAccount": "no account?",
     "confirmPassword": "Confirm password",
-    "equalPassword": "Passwords do not match",
+    "equalPassword": "Passwords must match",
     "nameTaken": "Name already taken",
-    "invalidCreds": "The username or password is incorrect",
-    "invalidPath": " Incorrect path, please go"
+    "invalidCreds": "Incorrect username or password",
+    "invalidPath": "Incorrect path, please go"
   },
   "app": {
     "exit": "Log out",

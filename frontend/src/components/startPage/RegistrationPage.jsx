@@ -5,7 +5,7 @@ import axios from "axios";
 import routes from "../../utils/routes";
 import * as yup from "yup";
 
-import styles from "./StartPage.module.css";
+import styles from "../../styles/StartPage.module.css";
 import { useDispatch } from "react-redux";
 import { setCredentials } from "../../slices/authSlice";
 import { useTranslation } from "react-i18next";
@@ -81,80 +81,106 @@ const RegistrationPage = () => {
     formik.touched.confirmPassword && Boolean(formik.errors.confirmPassword);
 
   return (
-    <Form onSubmit={formik.handleSubmit} className={styles.form}>
-      <Form.Group className={styles.formGroup}>
-        <Form.Label htmlFor="username" className={styles.label}>
-          {t("login.name")}
-        </Form.Label>
+    <div className={styles.center}>
+      <div className={styles.card}>
+        <div className={styles.cardBody}>
+          <div className={styles.content}>
+            <h1 className={styles.title}>{t("login.registration")}</h1>
 
-        <Form.Control
-          id="username"
-          name="username"
-          type="text"
-          value={formik.values.username}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          className={`${styles.input} ${usernameInvalid ? styles.inputInvalid : ""}`}
-          isInvalid={usernameInvalid}
-        />
-        <Form.Control.Feedback
-          type="invalid"
-          className={styles.invalidFeedback}
-        >
-          {formik.touched.username ? formik.errors.username : null}
-        </Form.Control.Feedback>
-      </Form.Group>
-      <Form.Group className={styles.formGroup}>
-        <Form.Label htmlFor="password" className={styles.label}>
-          {t("login.password")}
-        </Form.Label>
+            <Form onSubmit={formik.handleSubmit} className={styles.form}>
+              <Form.Group className={styles.formGroup}>
+                <div className={styles.field}>
+                  <Form.Control
+                    id="username"
+                    name="username"
+                    type="text"
+                    value={formik.values.username}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    placeholder=" "
+                    className={`${styles.input} ${usernameInvalid ? styles.inputInvalid : ""}`}
+                    isInvalid={usernameInvalid}
+                  />
+                  <label className={styles.floatingLabel} htmlFor="username">
+                    {t("login.name")}
+                  </label>
 
-        <Form.Control
-          id="password"
-          name="password"
-          type="password"
-          value={formik.values.password}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          className={`${styles.input} ${passwordInvalid ? styles.inputInvalid : ""}`}
-          isInvalid={passwordInvalid}
-        />
-        <Form.Control.Feedback
-          type="invalid"
-          className={styles.invalidFeedback}
-        >
-          {formik.touched.password ? formik.errors.password : null}
-        </Form.Control.Feedback>
-      </Form.Group>
-      <Form.Group className={styles.formGroup}>
-        <Form.Label htmlFor="confirmPassword" className={styles.label}>
-          {t("login.confirmPassword")}
-        </Form.Label>
+                  <Form.Control.Feedback
+                    type="invalid"
+                    className={styles.invalidFeedback}
+                  >
+                    {formik.touched.username ? formik.errors.username : null}
+                  </Form.Control.Feedback>
+                </div>
+              </Form.Group>
 
-        <Form.Control
-          id="confirmPassword"
-          name="confirmPassword"
-          type="password"
-          value={formik.values.confirmPassword}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          className={`${styles.input} ${confirmInvalid ? styles.inputInvalid : ""}`}
-          isInvalid={confirmInvalid}
-        />
-        <Form.Control.Feedback
-          type="invalid"
-          className={styles.invalidFeedback}
-        >
-          {formik.touched.confirmPassword
-            ? formik.errors.confirmPassword
-            : null}
-        </Form.Control.Feedback>
-      </Form.Group>
+              <Form.Group className={styles.formGroup}>
+                <div className={styles.field}>
+                  <Form.Control
+                    id="password"
+                    name="password"
+                    type="password"
+                    value={formik.values.password}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    placeholder=" "
+                    className={`${styles.input} ${passwordInvalid ? styles.inputInvalid : ""}`}
+                    isInvalid={passwordInvalid}
+                  />
+                  <label className={styles.floatingLabel} htmlFor="password">
+                    {t("login.password")}
+                  </label>
 
-      <Button type="submit" className={styles.button}>
-        {t("login.registration")}
-      </Button>
-    </Form>
+                  <Form.Control.Feedback
+                    type="invalid"
+                    className={styles.invalidFeedback}
+                  >
+                    {formik.touched.password ? formik.errors.password : null}
+                  </Form.Control.Feedback>
+                </div>
+              </Form.Group>
+
+              <Form.Group className={styles.formGroup}>
+                <div className={styles.field}>
+                  <Form.Control
+                    id="confirmPassword"
+                    name="confirmPassword"
+                    type="password"
+                    value={formik.values.confirmPassword}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    placeholder=" "
+                    className={`${styles.input} ${confirmInvalid ? styles.inputInvalid : ""}`}
+                    isInvalid={confirmInvalid}
+                  />
+                  <label
+                    className={styles.floatingLabel}
+                    htmlFor="confirmPassword"
+                  >
+                    {t("login.confirmPassword")}
+                  </label>
+
+                  <Form.Control.Feedback
+                    type="invalid"
+                    className={styles.invalidFeedback}
+                  >
+                    {formik.touched.confirmPassword
+                      ? formik.errors.confirmPassword
+                      : null}
+                  </Form.Control.Feedback>
+                </div>
+              </Form.Group>
+
+              <div className={styles.actions}>
+                <Button type="submit" className={styles.primaryButton}>
+                  {t("login.registration")}
+                </Button>
+              </div>
+            </Form>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 };
 

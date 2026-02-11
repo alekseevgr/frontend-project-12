@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import routes from "../../utils/routes";
 import axios from "axios";
 import { setActiveChannel } from "../../slices/channelsSlice";
-import styles from "./Channels.module.css";
+import styles from "../../styles/Channels.module.css";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 import { useRollbar } from "@rollbar/react";
@@ -46,16 +46,19 @@ const RemoveChannel = ({ show, onHide, channelId }) => {
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={handleSubmit} className={styles.form}>
-          <Button type="submit" className={styles.button}>
-            {t("channels.delete")}
-          </Button>
-          <Button
-            type="button"
-            onClick={handleCancel}
-            className={styles.button}
-          >
-            {t("channels.reject")}
-          </Button>
+          <div className={styles.formActions}>
+            <Button
+              type="button"
+              onClick={handleCancel}
+              className={styles.secondaryButton}
+            >
+              {t("channels.reject")}
+            </Button>
+
+            <Button type="submit" className={styles.primaryButton}>
+              {t("channels.delete")}
+            </Button>
+          </div>
         </Form>
       </Modal.Body>
     </Modal>

@@ -4,10 +4,11 @@ import { useSelector } from "react-redux";
 
 import routes from "../../utils/routes";
 import axios from "axios";
-import styles from "./MessageList.module.css";
+import styles from "../../styles/MessageList.module.css";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 import { useRollbar } from "@rollbar/react";
+import { useRef, useEffect } from "react";
 
 import filter from "leo-profanity";
 
@@ -19,6 +20,29 @@ const NewMessage = () => {
 
   const { t } = useTranslation();
   const rollbar = useRollbar();
+
+  const inputRef = useRef(null);
+  const MAX_HEIGHT = 120;
+
+  const growOnly = () => {
+    const el = inputRef.current;
+    if (!el) return;
+
+    const next = Math.min(el.scrollHeight, MAX_HEIGHT);
+    if (next > el.offsetHeight) {
+      el.style.height = `${next}px`;
+    }
+  };
+
+  const resetHeight = () => {
+    const el = inputRef.current;
+    if (!el) return;
+    el.style.height = "";
+  };
+
+  useEffect(() => {
+    resetHeight();
+  }, []);
 
   const formik = useFormik({
     initialValues: {
@@ -48,6 +72,7 @@ const NewMessage = () => {
         })
         .then(() => {
           resetForm();
+          resetHeight();
         })
         .catch((e) => {
           rollbar.error("Send message failed", e, {
@@ -66,17 +91,28 @@ const NewMessage = () => {
     <Form onSubmit={formik.handleSubmit} className={styles.form}>
       <Form.Group className={styles.group}>
         <Form.Control
+          as="textarea"
+          rows={1}
+          ref={inputRef}
           id="message"
           name="message"
-          type="text"
           value={formik.values.message}
-          onChange={formik.handleChange}
-          className={styles.input}
+          onChange={(e) => {
+            formik.handleChange(e);
+            growOnly();
+          }}
+          onKeyDown={(e) => {
+            if (e.key === "Enter" && !e.shiftKey) {
+              e.preventDefault();
+              formik.handleSubmit();
+            }
+          }}
           placeholder={t("channels.typeMessage")}
+          className={styles.input}
         />
       </Form.Group>
 
-      <Button type="submit" className={styles.button}>
+      <Button type="submit" variant="primary" className={styles.button}>
         {t("channels.send")}
       </Button>
     </Form>

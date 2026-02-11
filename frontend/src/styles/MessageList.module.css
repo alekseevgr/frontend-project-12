@@ -1,0 +1,62 @@
+.messageList {
+  list-style: none;
+  margin: 0;
+  padding: 16px;
+
+  height: 100%;
+  overflow-y: auto;
+
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.messageItem {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  max-width: 100%;
+}
+
+.messageUser {
+  font-size: 14px;
+  font-weight: 600;
+  color: #212529;
+}
+
+.messageText {
+  font-size: 14px;
+  line-height: 1.4;
+  color: #212529;
+
+  white-space: pre-wrap;
+  word-break: break-word;
+  overflow-wrap: anywhere;
+}
+
+.form {
+  display: flex;
+  align-items: flex-end;
+  gap: 10px;
+
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.group {
+  flex: 1;
+  margin: 0;
+}
+
+.input {
+  min-height: 40px;
+  resize: none;
+  overflow: hidden;
+}
+
+.button {
+  align-self: flex-end;
+  white-space: nowrap;
+}

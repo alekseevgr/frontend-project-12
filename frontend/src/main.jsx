@@ -19,6 +19,8 @@ import { rollbarConfig } from "./utils/rollbar.js";
 import "./i18n";
 
 import { store } from "./slices/store.js";
+import "bootstrap/dist/css/bootstrap.min.css";
+import Header from "./utils/Header.jsx";
 
 const root = document.getElementById("root");
 
@@ -32,6 +34,7 @@ ReactDOM.createRoot(root).render(
         <Provider store={store}>
           <BrowserRouter>
             <ToastContainer />
+            <Header />
             <Routes>
               <Route
                 path="/"

@@ -7,7 +7,7 @@ import routes from "../../utils/routes";
 
 import { useDispatch } from "react-redux";
 import { setCredentials } from "../../slices/authSlice";
-import styles from "./StartPage.module.css";
+import styles from "../../styles/StartPage.module.css";
 import { useTranslation } from "react-i18next";
 import { toast } from "react-toastify";
 import { useRollbar } from "@rollbar/react";
@@ -58,55 +58,77 @@ const LoginPage = () => {
   };
 
   return (
-    <Form onSubmit={formik.handleSubmit} className={styles.form}>
-      <Form.Group className={styles.formGroup}>
-        <Form.Label htmlFor="username" className={styles.label}>
-          {t("login.name")}
-        </Form.Label>
+    <div className={styles.center}>
+      <div className={styles.card}>
+        <div className={styles.cardBody}>
+          <div className={styles.content}>
+            <h1 className={styles.title}>{t("login.enter")}</h1>
+            <Form onSubmit={formik.handleSubmit} className={styles.form}>
+              <Form.Group className={styles.formGroup}>
+                <div className={styles.field}>
+                  <Form.Control
+                    id="username"
+                    name="username"
+                    type="text"
+                    value={formik.values.username}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    placeholder=" "
+                    className={`${styles.input} ${isInvalid ? styles.inputInvalid : ""}`}
+                    isInvalid={isInvalid}
+                  />
+                  <label className={styles.floatingLabel} htmlFor="username">
+                    {t("login.nickname")}
+                  </label>
+                </div>
+              </Form.Group>
 
-        <Form.Control
-          id="username"
-          name="username"
-          type="text"
-          value={formik.values.username}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          className={`${styles.input} ${isInvalid ? styles.inputInvalid : ""}`}
-          isInvalid={isInvalid}
-        />
-      </Form.Group>
-      <Form.Group className={styles.formGroup}>
-        <Form.Label htmlFor="password" className={styles.label}>
-          {t("login.password")}
-        </Form.Label>
+              <Form.Group className={styles.formGroup}>
+                <div className={styles.field}>
+                  <Form.Control
+                    id="password"
+                    name="password"
+                    type="password"
+                    value={formik.values.password}
+                    onChange={formik.handleChange}
+                    onBlur={formik.handleBlur}
+                    placeholder=" "
+                    className={`${styles.input} ${isInvalid ? styles.inputInvalid : ""}`}
+                    isInvalid={isInvalid}
+                  />
+                  <label className={styles.floatingLabel} htmlFor="password">
+                    {t("login.password")}
+                  </label>
 
-        <Form.Control
-          id="password"
-          name="password"
-          type="password"
-          value={formik.values.password}
-          onChange={formik.handleChange}
-          onBlur={formik.handleBlur}
-          className={`${styles.input} ${isInvalid ? styles.inputInvalid : ""}`}
-          isInvalid={isInvalid}
-        />
-        {isInvalid ? (
-          <Form.Control.Feedback
-            type="invalid"
-            className={styles.invalidFeedback}
-          >
-            {t("login.invalidCreds")}
-          </Form.Control.Feedback>
-        ) : null}
-      </Form.Group>
+                  {isInvalid ? (
+                    <Form.Control.Feedback
+                      type="invalid"
+                      className={styles.invalidFeedback}
+                    >
+                      {t("login.invalidCreds")}
+                    </Form.Control.Feedback>
+                  ) : null}
+                </div>
+              </Form.Group>
 
-      <Button type="submit" className={styles.button}>
-        {t("login.enter")}
-      </Button>
-      <Button type="button" onClick={handleClick} className={styles.button}>
-        {t("login.registration")}
-      </Button>
-    </Form>
+              <Button type="submit" className={styles.primaryButton}>
+                {t("login.enter")}
+              </Button>
+            </Form>
+          </div>
+        </div>
+      </div>
+      <div className={styles.footerBlock}>
+        {t("login.noAccount")}{" "}
+        <button
+          type="button"
+          onClick={handleClick}
+          className={styles.footerLink}
+        >
+          {t("login.registration")}
+        </button>
+      </div>
+    </div>
   );
 };
 

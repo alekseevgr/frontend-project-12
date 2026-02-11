@@ -1,0 +1,214 @@
+.channelsPanel {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  height: 100%;
+  padding: 12px;
+
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+  background: #ffffff;
+
+  overflow: auto;
+  min-height: 0;
+}
+
+.channelsList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+
+  overflow: visible;
+}
+
+.channelItem {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+
+  padding: 8px 10px;
+
+  border: 1px solid transparent;
+  border-radius: 8px;
+
+  cursor: pointer;
+  user-select: none;
+
+  background: transparent;
+  color: #1f2937;
+}
+
+.channelItem:hover {
+  background: #f8fafc;
+  border-color: #e5e7eb;
+}
+
+.isActive {
+  background: #eff6ff;
+  border-color: #bfdbfe;
+  color: #1d4ed8;
+}
+
+.isActive:hover {
+  background: #eff6ff;
+  border-color: #bfdbfe;
+}
+
+.channelName {
+  flex: 1;
+  min-width: 0;
+
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.channelActions {
+  position: relative;
+  flex: 0 0 auto;
+}
+
+.kebabBtn {
+  width: 32px;
+  height: 32px;
+
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+
+  border: 1px solid transparent;
+  border-radius: 8px;
+
+  background: transparent;
+  color: #6b7280;
+
+  cursor: pointer;
+}
+
+.kebabBtn:hover {
+  background: #f3f4f6;
+  border-color: #e5e7eb;
+  color: #111827;
+}
+
+.kebabBtn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.35);
+}
+
+.kebabMenu {
+  position: absolute;
+  top: calc(100% + 6px);
+  right: 0;
+  z-index: 20;
+
+  min-width: 160px;
+
+  padding: 6px;
+  border: 1px solid #e5e7eb;
+  border-radius: 10px;
+
+  background: #ffffff;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+}
+
+.kebabItem {
+  width: 100%;
+  text-align: left;
+
+  padding: 8px 10px;
+  border: 0;
+  border-radius: 8px;
+
+  background: transparent;
+  color: #1f2937;
+
+  cursor: pointer;
+}
+
+.kebabItem:hover {
+  background: #f3f4f6;
+}
+
+.danger {
+  color: #dc2626;
+}
+
+.danger:hover {
+  background: #fef2f2;
+}
+
+.addChannelBtn {
+  width: 100%;
+
+  padding: 10px 12px;
+
+  border: 1px solid #e5e7eb;
+  border-radius: 8px;
+
+  background: #ffffff;
+  color: #1f2937;
+
+  cursor: pointer;
+}
+
+.addChannelBtn:hover {
+  background: #f8fafc;
+}
+
+.addChannelBtn:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.35);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.formGroup {
+  margin: 0;
+}
+
+.input {
+  border-radius: 8px;
+}
+
+.inputInvalid {
+  border-color: #dc2626 !important;
+}
+
+.invalidFeedback {
+  margin-top: 6px;
+  font-size: 13px;
+}
+
+.button {
+  border-radius: 8px;
+}
+
+.formActions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.primaryButton {
+  border-radius: 8px;
+}
+
+.secondaryButton {
+  border-radius: 8px;
+  opacity: 0.8;
+}
+
+.secondaryButton:hover {
+  opacity: 1;
+}

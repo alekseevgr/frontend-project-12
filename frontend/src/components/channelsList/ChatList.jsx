@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import AddChannel from "./AddChannel.jsx";
 import RemoveChannel from "./RemoveChannel.jsx";
 import RenameChannel from "./RenameChannel.jsx";
-import styles from "./Channels.module.css";
+import styles from "../../styles/Channels.module.css";
 import { useTranslation } from "react-i18next";
 
 const ChatList = ({ channels }) => {

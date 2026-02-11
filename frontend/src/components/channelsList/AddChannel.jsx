@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { useMemo } from "react";
 import { setActiveChannel } from "../../slices/channelsSlice";
 import * as yup from "yup";
-import styles from "./Channels.module.css";
+import styles from "../../styles/Channels.module.css";
 import { useRollbar } from "@rollbar/react";
 
 import { useTranslation } from "react-i18next";
@@ -115,21 +115,23 @@ const AddChannel = ({ show, onHide }) => {
               {formik.touched.name ? formik.errors.name : null}
             </Form.Control.Feedback>
           </Form.Group>
+          <div className={styles.formActions}>
+            <Button
+              type="button"
+              onClick={handleCancel}
+              className={styles.secondaryButton}
+            >
+              {t("channels.reject")}
+            </Button>
 
-          <Button
-            type="submit"
-            disabled={formik.isSubmitting}
-            className={styles.button}
-          >
-            {t("channels.createChannel")}
-          </Button>
-          <Button
-            type="button"
-            className={styles.button}
-            onClick={handleCancel}
-          >
-            {t("channels.reject")}
-          </Button>
+            <Button
+              type="submit"
+              disabled={formik.isSubmitting}
+              className={styles.primaryButton}
+            >
+              {t("channels.createChannel")}
+            </Button>
+          </div>
         </Form>
       </Modal.Body>
     </Modal>
