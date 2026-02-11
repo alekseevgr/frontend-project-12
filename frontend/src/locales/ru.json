@@ -1,8 +1,8 @@
 {
   "chatName": "Hexlet chat",
   "form": {
-    "minSymbols": "Минимум 3 символа",
-    "maxSymbols": "Максимум 20 символов",
+    "minSymbols": "От 3 до 20 символов",
+    "maxSymbols": "От 3 до 20 символов",
     "required": "Обязательно",
     "minPassword": "Не менее 6 символов",
     "equalPassword": "Пароли не совпадают"
@@ -42,9 +42,9 @@
     "noAccount": "Нет аккаунта?",
     "enter": "Войти",
     "registration": "Регистрация",
-    "confirmPassword": "Подтвердить пароль",
+    "confirmPassword": "Подтвердите пароль",
     "equalPassword": "Пароли должны совпадать",
-    "nameTaken": "Имя уже занято",
+    "nameTaken": "Такой пользователь уже существует",
     "invalidCreds": "Неверные имя пользователя или пароль",
     "invalidPath": "Некорректный путь, перейдите в"
   },

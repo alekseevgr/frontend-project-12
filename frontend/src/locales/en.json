@@ -1,8 +1,8 @@
 {
   "chatName": "Hexlet chat",
   "form": {
-    "minSymbols": "Minimum 3 symbols",
-    "maxSymbols": "Maximum 20 symbols",
+    "minSymbols": "From 3 to 20 characters",
+    "maxSymbols": "From 3 to 20 characters",
     "required": "Required",
     "minPassword": "At least 6 characters",
     "equalPassword": "Passwords do not match"
@@ -11,13 +11,13 @@
     "created": "Channel created",
     "renaming": "Channel renamed",
     "removing": "Channel deleted",
-    "profanityCleaned": "Your message has been filtered",
+    "profanityCleaned": "Message filtered",
     "profanity": "Incorrect channel name"
   },
   "errors": {
     "network": "Connection error",
     "unknown": "Something went wrong",
-    "profanity": "Incorrect name, please type correct name"
+    "profanity": "Incorrect channel name"
   },
   "channels": {
     "channelName": "Channel name",
@@ -25,28 +25,28 @@
     "unique": "Channel name must be unique",
     "createChannel": "Create channel",
     "reject": "Cancel",
-    "edit": "Edit",
+    "edit": "Rename",
     "delete": "Delete",
     "deleteChannel": "Delete channel",
     "changeName": "Rename channel",
-    "typeNameChannel": "Type channel name",
-    "typeNewNameChannel": "Type a new channel name",
-    "typeMessage": "Type a message...",
-    "menu": "List channel",
+    "typeNameChannel": "Enter channel name",
+    "typeNewNameChannel": "Enter a new channel name",
+    "typeMessage": "Enter a new message",
+    "menu": "Channel list",
     "send": "Send"
   },
   "login": {
     "nickname": "Your nickname",
     "name": "Username",
     "password": "Password",
-    "enter": "Login",
+    "enter": "Log in",
     "registration": "Register",
-    "noAccount": "no account?",
+    "noAccount": "Don't have an account?",
     "confirmPassword": "Confirm password",
     "equalPassword": "Passwords must match",
     "nameTaken": "Name already taken",
     "invalidCreds": "Incorrect username or password",
-    "invalidPath": "Incorrect path, please go"
+    "invalidPath": "Incorrect path, please go to"
   },
   "app": {
     "exit": "Log out",
