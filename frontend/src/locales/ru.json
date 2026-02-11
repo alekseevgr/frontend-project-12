@@ -4,7 +4,7 @@
     "symbolsRange": "От 3 до 20 символов",
     "required": "Обязательно",
     "minPassword": "Не менее 6 символов",
-    "equalPassword": "Пароли не совпадают"
+    "equalPassword": "Пароли должны совпадать"
   },
   "toast": {
     "created": "Канал создан",
