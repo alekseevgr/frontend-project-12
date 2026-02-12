@@ -32,7 +32,8 @@
     "typeNewNameChannel": "Enter a new channel name",
     "typeMessage": "Enter a new message",
     "menu": "Channel list",
-    "send": "Send"
+    "send": "Send",
+    "newMessage": "New message"
   },
   "login": {
     "nickname": "Your nickname",

@@ -96,6 +96,7 @@ const NewMessage = () => {
           ref={inputRef}
           id="message"
           name="message"
+          aria-label={t("channels.newMessage")}
           value={formik.values.message}
           onChange={(e) => {
             formik.handleChange(e);
