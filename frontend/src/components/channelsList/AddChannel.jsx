@@ -102,6 +102,7 @@ const AddChannel = ({ show, onHide }) => {
               ref={inputRef}
               id="name"
               name="name"
+              aria-label={t("channels.channelName")}
               value={formik.values.name}
               onChange={formik.handleChange}
               placeholder={t("channels.typeNameChannel")}
