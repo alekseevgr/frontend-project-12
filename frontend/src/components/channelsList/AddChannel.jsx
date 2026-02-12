@@ -32,8 +32,9 @@ const AddChannel = ({ show, onHide }) => {
           .max(20, t("form.symbolsRange"))
           .required(t("form.required"))
           .test("unique", t("channels.unique"), (value) => {
-            const name = value?.trim();
-            return !channels.some((c) => c.name === name);
+            const raw = value?.trim() ?? "";
+            const cleaned = filter.clean(raw);
+            return !channels.some((c) => c.name === cleaned);
           }),
       }),
     [t, channels],
@@ -51,17 +52,12 @@ const AddChannel = ({ show, onHide }) => {
       name: "",
     },
     validationSchema,
-    onSubmit: (values, { resetForm, setFieldError, setSubmitting }) => {
+    onSubmit: (values, { resetForm }) => {
       const name = values.name.trim();
 
-      if (filter.check(name)) {
-        setFieldError("name", t("errors.profanity"));
-        toast.error(t("errors.profanity"));
-        setSubmitting(false);
-        return;
-      }
+      const cleaned = filter.clean(name);
+      const newChannel = { name: cleaned };
 
-      const newChannel = { name };
       return axios
         .post(routes.channels(), newChannel, {
           headers: {
@@ -76,7 +72,7 @@ const AddChannel = ({ show, onHide }) => {
         })
         .catch((e) => {
           rollbar.error("Create channel failed", e, {
-            channelName: name,
+            channelName: cleaned,
             status: e?.response?.status,
           });
           toast.error(!e.response ? t("errors.network") : t("errors.unknown"));
@@ -98,6 +94,9 @@ const AddChannel = ({ show, onHide }) => {
       <Modal.Body>
         <Form onSubmit={formik.handleSubmit} className={styles.form}>
           <Form.Group className={styles.formGroup}>
+            <Form.Label htmlFor="name" className="visually-hidden">
+              {t("channels.channelName")}
+            </Form.Label>
             <Form.Control
               ref={inputRef}
               id="name"
