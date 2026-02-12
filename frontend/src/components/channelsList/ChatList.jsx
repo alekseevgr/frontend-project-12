@@ -33,6 +33,17 @@ const ChatList = ({ channels }) => {
 
   return (
     <div className={styles.channelsPanel} ref={rootRef}>
+      <div className={styles.channelsHeader}>
+        <h4 className={styles.channelsTitle}>{t("channels.channels")}</h4>
+        <button
+          type="button"
+          className={styles.addChannelBtn}
+          onClick={openAddModal}
+          aria-label={t("channels.createChannel")}
+        >
+          +
+        </button>
+      </div>
       <ul className={styles.channelsList}>
         {channels.map(({ id, name, removable }) => {
           const isActive = id === activeChannel;
@@ -101,14 +112,6 @@ const ChatList = ({ channels }) => {
       {modal.type === "removing" && (
         <RemoveChannel show onHide={hideModal} channelId={modal.channelId} />
       )}
-
-      <button
-        type="button"
-        className={styles.addChannelBtn}
-        onClick={openAddModal}
-      >
-        {t("channels.createChannel")}
-      </button>
     </div>
   );
 };

@@ -20,6 +20,7 @@
   },
   "channels": {
     "channelName": "Channel name",
+    "channels": "Channels",
     "manageChannel": "Manage channel",
     "unique": "Channel name must be unique",
     "createChannel": "Create channel",

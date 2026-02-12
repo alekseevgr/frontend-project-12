@@ -20,6 +20,7 @@
   },
   "channels": {
     "channelName": "Имя канала",
+    "channels": "Каналы",
     "manageChannel": "Управление каналом",
     "unique": "Имя канала должно быть уникальным",
     "createChannel": "Создать канал",
