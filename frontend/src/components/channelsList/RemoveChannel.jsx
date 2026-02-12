@@ -55,7 +55,7 @@ const RemoveChannel = ({ show, onHide, channelId }) => {
               {t("channels.reject")}
             </Button>
 
-            <Button type="submit" className={styles.primaryButton}>
+            <Button type="submit" variant="danger" className="btn-danger">
               {t("channels.delete")}
             </Button>
           </div>
