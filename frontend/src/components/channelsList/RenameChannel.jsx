@@ -91,10 +91,18 @@ const RenameChannel = ({ show, onHide, channelId }) => {
       <Modal.Body>
         <Form onSubmit={formik.handleSubmit} className={styles.form}>
           <Form.Group className={styles.formGroup}>
+            <Form.Label
+              htmlFor="rename-channel-name"
+              className="visually-hidden"
+            >
+              {t("channels.channelName")}
+            </Form.Label>
             <Form.Control
               ref={inputRef}
               name="name"
+              id="rename-channel-name"
               value={formik.values.name}
+              aria-label={t("channels.channelName")}
               onChange={(e) => {
                 formik.handleChange(e);
                 if (formik.errors.name) {
