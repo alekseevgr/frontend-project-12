@@ -19,13 +19,11 @@ const Header = () => {
       <span type="button" onClick={() => handleClick()}>
         {t('chatName')}
       </span>
-      {isAuthenticated
-        ? (
+      {isAuthenticated && (
         <Button type="button" onClick={() => dispatch(logout())}>
           {t('app.exit')}
         </Button>
-          )
-        : null}
+      )}
     </header>
   )
 }

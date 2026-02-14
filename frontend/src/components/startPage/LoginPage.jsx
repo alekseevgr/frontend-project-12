@@ -100,16 +100,14 @@ const LoginPage = () => {
                     {t('login.password')}
                   </label>
 
-                  {isInvalid
-                    ? (
+                  {isInvalid && (
                     <Form.Control.Feedback
                       type="invalid"
                       className={styles.invalidFeedback}
                     >
                       {t('login.invalidCreds')}
                     </Form.Control.Feedback>
-                      )
-                    : null}
+                  )}
                 </div>
               </Form.Group>
 

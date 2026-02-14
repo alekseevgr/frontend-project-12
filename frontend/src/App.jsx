@@ -14,9 +14,9 @@ import { useRollbar } from '@rollbar/react'
 
 const App = () => {
   const dispatch = useDispatch()
-  const token = useSelector((state) => state.auth.token)
-  const channels = useSelector((state) => state.channels.items)
-  const messages = useSelector((state) => state.messages.items)
+  const token = useSelector(state => state.auth.token)
+  const channels = useSelector(state => state.channels.items)
+  const messages = useSelector(state => state.messages.items)
   const rollbar = useRollbar()
 
   async function getChannels(token) {
@@ -43,7 +43,8 @@ const App = () => {
 
         dispatch(setChannels(channelsData))
         dispatch(setMessages(messagesData))
-      } catch (e) {
+      }
+      catch (e) {
         rollbar.error('Failed to load initial data', e, {
           hasToken: Boolean(token),
         })
@@ -55,7 +56,7 @@ const App = () => {
     <>
       <main className={styles.appMain}>
         <aside className={styles.channels}>
-          <ChatList channels={channels} activeChannelId={'1'} />
+          <ChatList channels={channels} activeChannelId="1" />
         </aside>
 
         <section className={styles.chat}>

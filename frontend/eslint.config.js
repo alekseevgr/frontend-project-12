@@ -34,10 +34,10 @@ export default defineConfig([
     },
 
     plugins: {
-      react: reactPlugin,
-      functional,
+      'react': reactPlugin,
+      'functional': functional,
       'testing-library': testingLibrary,
-      import: importPlugin,
+      'import': importPlugin,
       'react-hooks': reactHooks,
       'react-refresh': reactRefresh,
     },
