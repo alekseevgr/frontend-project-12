@@ -1,53 +1,53 @@
-import { useSelector, useDispatch } from "react-redux";
-import { setActiveChannel } from "../../slices/channelsSlice";
-import { useEffect, useRef, useState } from "react";
-import AddChannel from "./AddChannel.jsx";
-import RemoveChannel from "./RemoveChannel.jsx";
-import RenameChannel from "./RenameChannel.jsx";
-import styles from "../../styles/Channels.module.css";
-import { useTranslation } from "react-i18next";
+import { useSelector, useDispatch } from 'react-redux'
+import { setActiveChannel } from '../../slices/channelsSlice'
+import { useEffect, useRef, useState } from 'react'
+import AddChannel from './AddChannel.jsx'
+import RemoveChannel from './RemoveChannel.jsx'
+import RenameChannel from './RenameChannel.jsx'
+import styles from '../../styles/Channels.module.css'
+import { useTranslation } from 'react-i18next'
 
 const ChatList = ({ channels }) => {
-  const dispatch = useDispatch();
-  const activeChannel = useSelector((state) => state.channels.activeChannelId);
+  const dispatch = useDispatch()
+  const activeChannel = useSelector((state) => state.channels.activeChannelId)
 
-  const [modal, setModal] = useState({ type: null, channelId: null });
-  const [openedMenuId, setOpenedMenuId] = useState(null);
+  const [modal, setModal] = useState({ type: null, channelId: null })
+  const [openedMenuId, setOpenedMenuId] = useState(null)
 
-  const rootRef = useRef(null);
-  const { t } = useTranslation();
+  const rootRef = useRef(null)
+  const { t } = useTranslation()
 
-  const hideModal = () => setModal({ type: null, channelId: null });
+  const hideModal = () => setModal({ type: null, channelId: null })
 
-  const openAddModal = () => setModal({ type: "adding", channelId: null });
+  const openAddModal = () => setModal({ type: 'adding', channelId: null })
 
-  const openRenameModal = (id) => setModal({ type: "renaming", channelId: id });
+  const openRenameModal = (id) => setModal({ type: 'renaming', channelId: id })
 
-  const openRemoveModal = (id) => setModal({ type: "removing", channelId: id });
+  const openRemoveModal = (id) => setModal({ type: 'removing', channelId: id })
 
   useEffect(() => {
     const onDocClick = (e) => {
-      if (!rootRef.current) return;
+      if (!rootRef.current) return
       if (!rootRef.current.contains(e.target)) {
-        setOpenedMenuId(null);
+        setOpenedMenuId(null)
       }
-    };
+    }
 
-    document.addEventListener("click", onDocClick);
-    return () => document.removeEventListener("click", onDocClick);
-  }, []);
+    document.addEventListener('click', onDocClick)
+    return () => document.removeEventListener('click', onDocClick)
+  }, [])
 
   return (
     <div className={styles.channelsPanel} ref={rootRef}>
       <div className={styles.channelsHeader}>
-        <h4 className={styles.channelsTitle}>{t("channels.channels")}</h4>
+        <h4 className={styles.channelsTitle}>{t('channels.channels')}</h4>
 
         <button
           type="button"
           className={styles.addChannelBtn}
           onClick={openAddModal}
-          aria-label={t("channels.createChannel")}
-          title={t("channels.createChannel")}
+          aria-label={t('channels.createChannel')}
+          title={t('channels.createChannel')}
         >
           +
         </button>
@@ -55,13 +55,13 @@ const ChatList = ({ channels }) => {
 
       <ul className={styles.channelsList}>
         {channels.map(({ id, name, removable }) => {
-          const isActive = id === activeChannel;
+          const isActive = id === activeChannel
 
           return (
             <li
               key={id}
               className={`${styles.channelItem} ${
-                isActive ? styles.isActive : ""
+                isActive ? styles.isActive : ''
               }`}
               role="button"
               onClick={() => dispatch(setActiveChannel(id))}
@@ -77,15 +77,15 @@ const ChatList = ({ channels }) => {
                     <button
                       type="button"
                       className={styles.kebabBtn}
-                      aria-label={t("channels.manageChannel")}
-                      title={t("channels.manageChannel")}
+                      aria-label={t('channels.manageChannel')}
+                      title={t('channels.manageChannel')}
                       onClick={() =>
                         setOpenedMenuId((prev) => (prev === id ? null : id))
                       }
                     >
                       ⋮
                       <span className="visually-hidden">
-                        {t("channels.manageChannel")}
+                        {t('channels.manageChannel')}
                       </span>
                     </button>
 
@@ -95,22 +95,22 @@ const ChatList = ({ channels }) => {
                           type="button"
                           className={styles.kebabItem}
                           onClick={() => {
-                            setOpenedMenuId(null);
-                            openRenameModal(id);
+                            setOpenedMenuId(null)
+                            openRenameModal(id)
                           }}
                         >
-                          {t("channels.edit")}
+                          {t('channels.edit')}
                         </button>
 
                         <button
                           type="button"
                           className={`${styles.kebabItem} ${styles.danger}`}
                           onClick={() => {
-                            setOpenedMenuId(null);
-                            openRemoveModal(id);
+                            setOpenedMenuId(null)
+                            openRemoveModal(id)
                           }}
                         >
-                          {t("channels.delete")}
+                          {t('channels.delete')}
                         </button>
                       </div>
                     )}
@@ -118,21 +118,21 @@ const ChatList = ({ channels }) => {
                 )}
               </div>
             </li>
-          );
+          )
         })}
       </ul>
 
-      {modal.type === "adding" && <AddChannel show onHide={hideModal} />}
+      {modal.type === 'adding' && <AddChannel show onHide={hideModal} />}
 
-      {modal.type === "renaming" && (
+      {modal.type === 'renaming' && (
         <RenameChannel show onHide={hideModal} channelId={modal.channelId} />
       )}
 
-      {modal.type === "removing" && (
+      {modal.type === 'removing' && (
         <RemoveChannel show onHide={hideModal} channelId={modal.channelId} />
       )}
     </div>
-  );
-};
+  )
+}
 
-export default ChatList;
+export default ChatList

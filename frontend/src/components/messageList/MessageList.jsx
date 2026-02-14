@@ -1,27 +1,25 @@
-import { useSelector } from "react-redux";
-import styles from "../../styles/MessageList.module.css";
-import { useRef, useEffect } from "react";
+import { useSelector } from 'react-redux'
+import styles from '../../styles/MessageList.module.css'
+import { useRef, useEffect } from 'react'
 
 const MessageList = ({ messages }) => {
-  const activeChannelId = useSelector(
-    (state) => state.channels.activeChannelId,
-  );
+  const activeChannelId = useSelector((state) => state.channels.activeChannelId)
 
   const messagesChannel = messages.filter(
     (message) => message.channelId === activeChannelId,
-  );
-  const listRef = useRef(null);
+  )
+  const listRef = useRef(null)
 
   useEffect(() => {
-    const el = listRef.current;
-    if (!el) return;
+    const el = listRef.current
+    if (!el) return
 
-    const nearBottom = el.scrollHeight - (el.scrollTop + el.clientHeight) < 80;
+    const nearBottom = el.scrollHeight - (el.scrollTop + el.clientHeight) < 80
 
     if (nearBottom) {
-      el.scrollTop = el.scrollHeight;
+      el.scrollTop = el.scrollHeight
     }
-  }, [activeChannelId, messagesChannel.length]);
+  }, [activeChannelId, messagesChannel.length])
 
   return (
     <ul ref={listRef} className={styles.messageList}>
@@ -32,7 +30,7 @@ const MessageList = ({ messages }) => {
         </li>
       ))}
     </ul>
-  );
-};
+  )
+}
 
-export default MessageList;
+export default MessageList

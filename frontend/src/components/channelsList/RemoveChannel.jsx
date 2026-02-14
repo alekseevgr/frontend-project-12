@@ -1,22 +1,22 @@
-import { Modal, Form, Button } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
-import routes from "../../utils/routes";
-import axios from "axios";
-import { setActiveChannel } from "../../slices/channelsSlice";
-import styles from "../../styles/Channels.module.css";
-import { useTranslation } from "react-i18next";
-import { toast } from "react-toastify";
-import { useRollbar } from "@rollbar/react";
+import { Modal, Form, Button } from 'react-bootstrap'
+import { useDispatch, useSelector } from 'react-redux'
+import routes from '../../utils/routes'
+import axios from 'axios'
+import { setActiveChannel } from '../../slices/channelsSlice'
+import styles from '../../styles/Channels.module.css'
+import { useTranslation } from 'react-i18next'
+import { toast } from 'react-toastify'
+import { useRollbar } from '@rollbar/react'
 
 const RemoveChannel = ({ show, onHide, channelId }) => {
-  const token = useSelector((state) => state.auth.token);
-  const dispatch = useDispatch();
-  const rollbar = useRollbar();
+  const token = useSelector((state) => state.auth.token)
+  const dispatch = useDispatch()
+  const rollbar = useRollbar()
 
-  const { t } = useTranslation();
+  const { t } = useTranslation()
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+    e.preventDefault()
     axios
       .delete(routes.removeChannel(channelId), {
         headers: {
@@ -24,25 +24,25 @@ const RemoveChannel = ({ show, onHide, channelId }) => {
         },
       })
       .then(() => {
-        dispatch(setActiveChannel("1"));
-        toast.success(t("toast.removing"));
-        onHide();
+        dispatch(setActiveChannel('1'))
+        toast.success(t('toast.removing'))
+        onHide()
       })
       .catch((e) => {
-        rollbar.error("Remove channel failed", e, {
+        rollbar.error('Remove channel failed', e, {
           status: e?.response?.status,
-        });
-        toast.error(!e.response ? t("errors.network") : t("errors.unknown"));
-      });
-  };
+        })
+        toast.error(!e.response ? t('errors.network') : t('errors.unknown'))
+      })
+  }
   const handleCancel = () => {
-    onHide();
-  };
+    onHide()
+  }
 
   return (
     <Modal show={show} onHide={onHide}>
       <Modal.Header>
-        <Modal.Title>{t("channels.deleteChannel")}</Modal.Title>
+        <Modal.Title>{t('channels.deleteChannel')}</Modal.Title>
       </Modal.Header>
       <Modal.Body>
         <Form onSubmit={handleSubmit} className={styles.form}>
@@ -52,18 +52,18 @@ const RemoveChannel = ({ show, onHide, channelId }) => {
               onClick={handleCancel}
               className={styles.secondaryButton}
             >
-              {t("channels.reject")}
+              {t('channels.reject')}
             </Button>
 
             <Button type="submit" variant="danger" className="btn-danger">
-              {t("channels.delete")}
+              {t('channels.delete')}
             </Button>
           </div>
         </Form>
       </Modal.Body>
     </Modal>
-  );
-};
+  )
+}
 
-export default RemoveChannel;
+export default RemoveChannel
 // END

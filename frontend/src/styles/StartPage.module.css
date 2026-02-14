@@ -81,12 +81,11 @@
   box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.15);
 }
 
-.input:focus+.floatingLabel,
-.input:not(:placeholder-shown)+.floatingLabel {
+.input:focus + .floatingLabel,
+.input:not(:placeholder-shown) + .floatingLabel {
   top: 8px;
   font-size: 12px;
 }
-
 
 .inputInvalid {
   border-color: #fca5a5 !important;
