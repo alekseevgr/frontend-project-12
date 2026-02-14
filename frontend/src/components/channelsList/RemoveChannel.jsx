@@ -9,7 +9,7 @@ import { toast } from 'react-toastify'
 import { useRollbar } from '@rollbar/react'
 
 const RemoveChannel = ({ show, onHide, channelId }) => {
-  const token = useSelector((state) => state.auth.token)
+  const token = useSelector(state => state.auth.token)
   const dispatch = useDispatch()
   const rollbar = useRollbar()
 

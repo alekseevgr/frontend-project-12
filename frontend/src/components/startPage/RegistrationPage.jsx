@@ -61,7 +61,8 @@ const RegistrationPage = () => {
         localStorage.setItem('username', name)
 
         navigate('/', { replace: true })
-      } catch (err) {
+      }
+      catch (err) {
         if (err.response?.status === 409) {
           formik.setFieldError('username', t('login.nameTaken'))
           return
@@ -73,12 +74,12 @@ const RegistrationPage = () => {
       }
     },
   })
-  const usernameInvalid =
-    formik.touched.username && Boolean(formik.errors.username)
-  const passwordInvalid =
-    formik.touched.password && Boolean(formik.errors.password)
-  const confirmInvalid =
-    formik.touched.confirmPassword && Boolean(formik.errors.confirmPassword)
+  const usernameInvalid
+    = formik.touched.username && Boolean(formik.errors.username)
+  const passwordInvalid
+    = formik.touched.password && Boolean(formik.errors.password)
+  const confirmInvalid
+    = formik.touched.confirmPassword && Boolean(formik.errors.confirmPassword)
 
   return (
     <div className={styles.center}>

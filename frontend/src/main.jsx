@@ -38,11 +38,11 @@ ReactDOM.createRoot(root).render(
             <Routes>
               <Route
                 path="/"
-                element={
+                element={(
                   <CheckAuth>
                     <App />
                   </CheckAuth>
-                }
+                )}
               />
               <Route path="/login" element={<LoginPage />} />
               <Route path="/signup" element={<RegistrationPage />} />

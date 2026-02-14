@@ -9,7 +9,7 @@ const Header = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const { t } = useTranslation()
-  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated)
+  const isAuthenticated = useSelector(state => state.auth.isAuthenticated)
   const handleClick = () => {
     navigate('/', { replace: true })
   }
@@ -19,11 +19,13 @@ const Header = () => {
       <span type="button" onClick={() => handleClick()}>
         {t('chatName')}
       </span>
-      {isAuthenticated ? (
+      {isAuthenticated
+        ? (
         <Button type="button" onClick={() => dispatch(logout())}>
           {t('app.exit')}
         </Button>
-      ) : null}
+          )
+        : null}
     </header>
   )
 }

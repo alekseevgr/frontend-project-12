@@ -13,11 +13,11 @@ import filter from 'leo-profanity'
 import { useRollbar } from '@rollbar/react'
 
 const RenameChannel = ({ show, onHide, channelId }) => {
-  const token = useSelector((state) => state.auth.token)
-  const channel = useSelector((state) =>
-    state.channels.items.find((c) => c.id === channelId),
+  const token = useSelector(state => state.auth.token)
+  const channel = useSelector(state =>
+    state.channels.items.find(c => c.id === channelId),
   )
-  const channels = useSelector((state) => state.channels.items)
+  const channels = useSelector(state => state.channels.items)
   const { t } = useTranslation()
   const rollbar = useRollbar()
 
@@ -30,7 +30,7 @@ const RenameChannel = ({ show, onHide, channelId }) => {
       .required(t('form.required'))
       .test('unique', t('channels.unique'), (value) => {
         const name = value?.trim()
-        return !channels.some((c) => c.name === name && c.id !== channelId)
+        return !channels.some(c => c.name === name && c.id !== channelId)
       }),
   })
 

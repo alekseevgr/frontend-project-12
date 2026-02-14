@@ -19,7 +19,7 @@ export const socketMiddleware = () => {
       store.dispatch(renameChannel(payload))
     })
 
-    return (next) => (action) => {
+    return next => (action) => {
       return next(action)
     }
   }

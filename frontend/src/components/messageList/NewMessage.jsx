@@ -12,11 +12,11 @@ import { useRef, useEffect } from 'react'
 
 import filter from 'leo-profanity'
 
-//{ id: '1', body: 'text message', channelId: '1', username: 'admin }, ...]
+// { id: '1', body: 'text message', channelId: '1', username: 'admin }, ...]
 const NewMessage = () => {
-  const token = useSelector((state) => state.auth.token)
-  const currentName = useSelector((state) => state.auth.username)
-  const currentId = useSelector((state) => state.channels.activeChannelId)
+  const token = useSelector(state => state.auth.token)
+  const currentName = useSelector(state => state.auth.username)
+  const currentId = useSelector(state => state.channels.activeChannelId)
 
   const { t } = useTranslation()
   const rollbar = useRollbar()

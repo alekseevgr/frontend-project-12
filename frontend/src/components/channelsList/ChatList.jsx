@@ -9,7 +9,7 @@ import { useTranslation } from 'react-i18next'
 
 const ChatList = ({ channels }) => {
   const dispatch = useDispatch()
-  const activeChannel = useSelector((state) => state.channels.activeChannelId)
+  const activeChannel = useSelector(state => state.channels.activeChannelId)
 
   const [modal, setModal] = useState({ type: null, channelId: null })
   const [openedMenuId, setOpenedMenuId] = useState(null)
@@ -21,9 +21,9 @@ const ChatList = ({ channels }) => {
 
   const openAddModal = () => setModal({ type: 'adding', channelId: null })
 
-  const openRenameModal = (id) => setModal({ type: 'renaming', channelId: id })
+  const openRenameModal = id => setModal({ type: 'renaming', channelId: id })
 
-  const openRemoveModal = (id) => setModal({ type: 'removing', channelId: id })
+  const openRemoveModal = id => setModal({ type: 'removing', channelId: id })
 
   useEffect(() => {
     const onDocClick = (e) => {
@@ -66,11 +66,14 @@ const ChatList = ({ channels }) => {
               role="button"
               onClick={() => dispatch(setActiveChannel(id))}
             >
-              <span className={styles.channelName}># {name}</span>
+              <span className={styles.channelName}>
+                #
+                {name}
+              </span>
 
               <div
                 className={styles.channelActions}
-                onClick={(e) => e.stopPropagation()}
+                onClick={e => e.stopPropagation()}
               >
                 {removable && (
                   <>
@@ -79,9 +82,7 @@ const ChatList = ({ channels }) => {
                       className={styles.kebabBtn}
                       aria-label={t('channels.manageChannel')}
                       title={t('channels.manageChannel')}
-                      onClick={() =>
-                        setOpenedMenuId((prev) => (prev === id ? null : id))
-                      }
+                      onClick={() => setOpenedMenuId(prev => (prev === id ? null : id))}
                     >
                       ⋮
                       <span className="visually-hidden">

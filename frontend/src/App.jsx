@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import { useEffect } from 'react'
 import axios from 'axios'
 
 import { useDispatch, useSelector } from 'react-redux'
@@ -11,7 +11,6 @@ import MessageList from './components/messageList/MessageList'
 import NewMessage from './components/messageList/NewMessage'
 import styles from './styles/App.module.css'
 import { useRollbar } from '@rollbar/react'
-import Header from './utils/Header'
 
 const App = () => {
   const dispatch = useDispatch()

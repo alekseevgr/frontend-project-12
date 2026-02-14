@@ -15,8 +15,8 @@ import { toast } from 'react-toastify'
 import filter from 'leo-profanity'
 
 const AddChannel = ({ show, onHide }) => {
-  const token = useSelector((state) => state.auth.token)
-  const channels = useSelector((state) => state.channels.items)
+  const token = useSelector(state => state.auth.token)
+  const channels = useSelector(state => state.channels.items)
   const dispatch = useDispatch()
   const rollbar = useRollbar()
 
@@ -34,7 +34,7 @@ const AddChannel = ({ show, onHide }) => {
           .test('unique', t('channels.unique'), (value) => {
             const raw = value?.trim() ?? ''
             const cleaned = filter.clean(raw)
-            return !channels.some((c) => c.name === cleaned)
+            return !channels.some(c => c.name === cleaned)
           }),
       }),
     [t, channels],

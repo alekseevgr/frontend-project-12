@@ -39,10 +39,12 @@ const LoginPage = () => {
         navigate('/', { replace: true })
 
         setErrorPassword(false)
-      } catch (err) {
+      }
+      catch (err) {
         if (err.response?.status === 401) {
           setErrorPassword(true)
-        } else {
+        }
+        else {
           rollbar.error('Login failed', err, { username: values.username })
           toast.error(!err.response ? t('errors.network') : t('errors.unknown'))
         }
@@ -98,14 +100,16 @@ const LoginPage = () => {
                     {t('login.password')}
                   </label>
 
-                  {isInvalid ? (
+                  {isInvalid
+                    ? (
                     <Form.Control.Feedback
                       type="invalid"
                       className={styles.invalidFeedback}
                     >
                       {t('login.invalidCreds')}
                     </Form.Control.Feedback>
-                  ) : null}
+                      )
+                    : null}
                 </div>
               </Form.Group>
 
@@ -117,7 +121,8 @@ const LoginPage = () => {
         </div>
       </div>
       <div className={styles.footerBlock}>
-        {t('login.noAccount')}{' '}
+        {t('login.noAccount')}
+        {' '}
         <button
           type="button"
           onClick={handleClick}

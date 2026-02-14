@@ -3,10 +3,10 @@ import styles from '../../styles/MessageList.module.css'
 import { useRef, useEffect } from 'react'
 
 const MessageList = ({ messages }) => {
-  const activeChannelId = useSelector((state) => state.channels.activeChannelId)
+  const activeChannelId = useSelector(state => state.channels.activeChannelId)
 
   const messagesChannel = messages.filter(
-    (message) => message.channelId === activeChannelId,
+    message => message.channelId === activeChannelId,
   )
   const listRef = useRef(null)
 

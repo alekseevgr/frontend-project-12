@@ -22,7 +22,7 @@ const channelsSlice = createSlice({
     },
     removeChannel: (state, action) => {
       const { id } = action.payload
-      state.items = state.items.filter((item) => item.id !== id)
+      state.items = state.items.filter(item => item.id !== id)
       if (state.activeChannelId === id) {
         state.activeChannelId = '1'
         localStorage.setItem('activeChannelId', '1')
@@ -30,7 +30,7 @@ const channelsSlice = createSlice({
     },
     renameChannel: (state, action) => {
       const { id, name } = action.payload
-      const channel = state.items.find((item) => item.id === id)
+      const channel = state.items.find(item => item.id === id)
       if (channel) {
         channel.name = name
       }
