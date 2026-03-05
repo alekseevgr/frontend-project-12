@@ -1,8 +1,7 @@
 import { Modal, Form, Button } from 'react-bootstrap'
 import { useSelector } from 'react-redux'
 import { useFormik } from 'formik'
-import routes from '../../utils/routes'
-import axios from 'axios'
+import api from '../../api/api'
 
 import { useEffect, useRef, useMemo } from 'react'
 import styles from '../../styles/Channels.module.css'
@@ -13,7 +12,6 @@ import { useRollbar } from '@rollbar/react'
 import { getChannelValidationSchema } from '../../utils/validationSchema'
 
 const RenameChannel = ({ show, onHide, channelId }) => {
-  const token = useSelector((state) => state.auth.token)
   const channel = useSelector((state) =>
     state.channels.items.find((c) => c.id === channelId),
   )
@@ -55,12 +53,8 @@ const RenameChannel = ({ show, onHide, channelId }) => {
       }
 
       const newName = { name }
-      return axios
-        .patch(routes.editChannel(channelId), newName, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
+      return api
+        .patch(`channels/${channelId}`, newName)
         .then(() => {
           toast.success(t('toast.renaming'))
           resetForm()

@@ -1,8 +1,7 @@
 import { useFormik } from 'formik'
 import { useNavigate } from 'react-router-dom'
 import { Button, Form } from 'react-bootstrap'
-import axios from 'axios'
-import routes from '../../utils/routes'
+import api from '../../api/api'
 
 import styles from '../../styles/StartPage.module.css'
 import { useDispatch } from 'react-redux'
@@ -30,7 +29,7 @@ const RegistrationPage = () => {
     onSubmit: async (values) => {
       try {
         const { username, password } = values
-        const res = await axios.post(routes.signupPath(), {
+        const res = await api.post('/signup', {
           username,
           password,
         })

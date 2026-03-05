@@ -2,8 +2,7 @@ import { useFormik } from 'formik'
 import { useNavigate } from 'react-router-dom'
 import { Button, Form } from 'react-bootstrap'
 import { useState } from 'react'
-import axios from 'axios'
-import routes from '../../utils/routes'
+import api from '../../api/api'
 
 import { useDispatch } from 'react-redux'
 import { setCredentials } from '../../slices/authSlice'
@@ -27,7 +26,7 @@ const LoginPage = () => {
     },
     onSubmit: async (values) => {
       try {
-        const res = await axios.post(routes.loginPath(), values)
+        const res = await api.post('/login', values)
         const token = res.data.token
         const name = res.data.username
 
@@ -39,12 +38,10 @@ const LoginPage = () => {
         navigate('/', { replace: true })
 
         setErrorPassword(false)
-      }
-      catch (err) {
+      } catch (err) {
         if (err.response?.status === 401) {
           setErrorPassword(true)
-        }
-        else {
+        } else {
           rollbar.error('Login failed', err, { username: values.username })
           toast.error(!err.response ? t('errors.network') : t('errors.unknown'))
         }
@@ -119,8 +116,7 @@ const LoginPage = () => {
         </div>
       </div>
       <div className={styles.footerBlock}>
-        {t('login.noAccount')}
-        {' '}
+        {t('login.noAccount')}{' '}
         <button
           type="button"
           onClick={handleClick}

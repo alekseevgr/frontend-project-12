@@ -1,10 +1,7 @@
-import { useEffect, useRef } from 'react'
+import { useEffect, useRef, useMemo } from 'react'
 import { useFormik } from 'formik'
 import { Modal, Form, Button } from 'react-bootstrap'
-import axios from 'axios'
-import routes from '../../utils/routes'
 import { useDispatch, useSelector } from 'react-redux'
-import { useMemo } from 'react'
 import { setActiveChannel } from '../../slices/channelsSlice'
 import styles from '../../styles/Channels.module.css'
 import { useRollbar } from '@rollbar/react'
@@ -13,9 +10,9 @@ import { useTranslation } from 'react-i18next'
 import { toast } from 'react-toastify'
 import filter from 'leo-profanity'
 import { getChannelValidationSchema } from '../../utils/validationSchema'
+import api from '../../api/api'
 
 const AddChannel = ({ show, onHide }) => {
-  const token = useSelector((state) => state.auth.token)
   const channels = useSelector((state) => state.channels.items)
   const dispatch = useDispatch()
   const rollbar = useRollbar()
@@ -46,17 +43,11 @@ const AddChannel = ({ show, onHide }) => {
     },
     validationSchema,
     onSubmit: (values, { resetForm }) => {
-      const name = values.name.trim()
-
-      const cleaned = filter.clean(name)
+      const cleaned = normalizeName(values.name)
       const newChannel = { name: cleaned }
 
-      return axios
-        .post(routes.channels(), newChannel, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
+      return api
+        .post('/channels', newChannel)
         .then(({ data }) => {
           dispatch(setActiveChannel(data.id))
           toast.success(t('toast.created'))

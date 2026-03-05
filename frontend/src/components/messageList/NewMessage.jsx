@@ -2,8 +2,7 @@ import { useFormik } from 'formik'
 import { Button, Form } from 'react-bootstrap'
 import { useSelector } from 'react-redux'
 
-import routes from '../../utils/routes'
-import axios from 'axios'
+import api from '../../api/api'
 import styles from '../../styles/MessageList.module.css'
 import { useTranslation } from 'react-i18next'
 import { toast } from 'react-toastify'
@@ -12,11 +11,9 @@ import { useRef, useEffect } from 'react'
 
 import filter from 'leo-profanity'
 
-// { id: '1', body: 'text message', channelId: '1', username: 'admin }, ...]
 const NewMessage = () => {
-  const token = useSelector(state => state.auth.token)
-  const currentName = useSelector(state => state.auth.username)
-  const currentId = useSelector(state => state.channels.activeChannelId)
+  const currentName = useSelector((state) => state.auth.username)
+  const currentId = useSelector((state) => state.channels.activeChannelId)
 
   const { t } = useTranslation()
   const rollbar = useRollbar()
@@ -64,12 +61,8 @@ const NewMessage = () => {
         username: currentName,
       }
 
-      return axios
-        .post(routes.messages(), newMessage, {
-          headers: {
-            Authorization: `Bearer ${token}`,
-          },
-        })
+      return api
+        .post('/messages', newMessage)
         .then(() => {
           resetForm()
           resetHeight()

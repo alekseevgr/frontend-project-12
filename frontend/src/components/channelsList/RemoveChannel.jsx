@@ -1,7 +1,6 @@
 import { Modal, Form, Button } from 'react-bootstrap'
-import { useDispatch, useSelector } from 'react-redux'
-import routes from '../../utils/routes'
-import axios from 'axios'
+import { useDispatch } from 'react-redux'
+import api from '../../api/api'
 import { setActiveChannel } from '../../slices/channelsSlice'
 import styles from '../../styles/Channels.module.css'
 import { useTranslation } from 'react-i18next'
@@ -9,7 +8,6 @@ import { toast } from 'react-toastify'
 import { useRollbar } from '@rollbar/react'
 
 const RemoveChannel = ({ show, onHide, channelId }) => {
-  const token = useSelector(state => state.auth.token)
   const dispatch = useDispatch()
   const rollbar = useRollbar()
 
@@ -17,12 +15,8 @@ const RemoveChannel = ({ show, onHide, channelId }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    axios
-      .delete(routes.removeChannel(channelId), {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      })
+    api
+      .delete(`/channels/${channelId}`)
       .then(() => {
         dispatch(setActiveChannel('1'))
         toast.success(t('toast.removing'))
