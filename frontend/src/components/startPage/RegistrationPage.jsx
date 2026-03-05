@@ -1,15 +1,14 @@
 import { useFormik } from 'formik'
 import { useNavigate } from 'react-router-dom'
 import { Button, Form } from 'react-bootstrap'
-import api from '../../api/api'
 
 import styles from '../../styles/StartPage.module.css'
 import { useDispatch } from 'react-redux'
-import { setCredentials } from '../../slices/authSlice'
 import { useTranslation } from 'react-i18next'
-import { toast } from 'react-toastify'
+
 import { useRollbar } from '@rollbar/react'
 import getValidationSchema from '../../utils/validationSchema'
+import registration from '../../utils/registration'
 
 const RegistrationPage = () => {
   const navigate = useNavigate()
@@ -26,34 +25,14 @@ const RegistrationPage = () => {
       confirmPassword: '',
     },
     validationSchema,
-    onSubmit: async (values) => {
-      try {
-        const { username, password } = values
-        const res = await api.post('/signup', {
-          username,
-          password,
-        })
-
-        const token = res.data.token
-        const name = res.data.username
-
-        dispatch(setCredentials({ token, name }))
-
-        localStorage.setItem('userId', token)
-        localStorage.setItem('username', name)
-
-        navigate('/', { replace: true })
-      } catch (err) {
-        if (err.response?.status === 409) {
-          formik.setFieldError('username', t('login.nameTaken'))
-          return
-        }
-        rollbar.error('Registration failed', err, {
-          username: values.username,
-        })
-        toast.error(!err.response ? t('errors.network') : t('errors.unknown'))
-      }
-    },
+    onSubmit: (values, formikHelpers) =>
+      registration(values, {
+        dispatch,
+        navigate,
+        rollbar,
+        formikHelpers,
+        t,
+      }),
   })
   const usernameInvalid =
     formik.touched.username && Boolean(formik.errors.username)

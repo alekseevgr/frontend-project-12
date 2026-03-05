@@ -1,15 +1,11 @@
 import { useFormik } from 'formik'
 import { Button, Form } from 'react-bootstrap'
 import { useSelector } from 'react-redux'
-
-import api from '../../api/api'
 import styles from '../../styles/MessageList.module.css'
 import { useTranslation } from 'react-i18next'
-import { toast } from 'react-toastify'
 import { useRollbar } from '@rollbar/react'
 import { useRef, useEffect } from 'react'
-
-import filter from 'leo-profanity'
+import sendMessage from '../../utils/sendMessage'
 
 const NewMessage = () => {
   const currentName = useSelector((state) => state.auth.username)
@@ -45,39 +41,15 @@ const NewMessage = () => {
     initialValues: {
       message: '',
     },
-    onSubmit: (values, { resetForm }) => {
-      const raw = values.message.trim()
-      if (!raw) return
-
-      const cleaned = filter.clean(raw)
-
-      if (cleaned !== raw) {
-        toast.info(t('toast.profanityCleaned'))
-      }
-
-      const newMessage = {
-        body: cleaned,
-        channelId: currentId,
-        username: currentName,
-      }
-
-      return api
-        .post('/messages', newMessage)
-        .then(() => {
-          resetForm()
-          resetHeight()
-        })
-        .catch((e) => {
-          rollbar.error('Send message failed', e, {
-            data: {
-              channelId: newMessage.channelId,
-              username: newMessage.username,
-            },
-            status: e?.response?.status,
-          })
-          toast.error(!e.response ? t('errors.network') : t('errors.unknown'))
-        })
-    },
+    onSubmit: (values, { resetForm }) =>
+      sendMessage(values, {
+        currentName,
+        currentId,
+        t,
+        resetForm,
+        resetHeight,
+        rollbar,
+      }),
   })
 
   return (

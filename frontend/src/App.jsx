@@ -1,8 +1,7 @@
 import { useEffect } from 'react'
-import axios from 'axios'
 
 import { useDispatch, useSelector } from 'react-redux'
-import routes from './utils/routes'
+
 import { setChannels } from './slices/channelsSlice'
 import { setMessages } from './slices/messagesSlice'
 
@@ -11,25 +10,21 @@ import MessageList from './components/messageList/MessageList'
 import NewMessage from './components/messageList/NewMessage'
 import styles from './styles/App.module.css'
 import { useRollbar } from '@rollbar/react'
+import api from './api/api'
 
 const App = () => {
   const dispatch = useDispatch()
-  const token = useSelector(state => state.auth.token)
-  const channels = useSelector(state => state.channels.items)
-  const messages = useSelector(state => state.messages.items)
+  const token = useSelector((state) => state.auth.token)
+  const channels = useSelector((state) => state.channels.items)
+  const messages = useSelector((state) => state.messages.items)
   const rollbar = useRollbar()
 
-  async function getChannels(token) {
-    const { data } = await axios.get(routes.channels(), {
-      headers: { Authorization: `Bearer ${token}` },
-    })
+  async function getChannels() {
+    const { data } = await api.get('/channels')
     return data
   }
-  async function getMessages(token) {
-    const { data } = await axios.get(routes.messages(), {
-      headers: { Authorization: `Bearer ${token}` },
-    })
-
+  async function getMessages() {
+    const { data } = await api.get('/messages')
     return data
   }
 
@@ -43,8 +38,7 @@ const App = () => {
 
         dispatch(setChannels(channelsData))
         dispatch(setMessages(messagesData))
-      }
-      catch (e) {
+      } catch (e) {
         rollbar.error('Failed to load initial data', e, {
           hasToken: Boolean(token),
         })

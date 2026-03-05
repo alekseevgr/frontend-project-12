@@ -2,15 +2,14 @@ import { useEffect, useRef, useMemo } from 'react'
 import { useFormik } from 'formik'
 import { Modal, Form, Button } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
-import { setActiveChannel } from '../../slices/channelsSlice'
 import styles from '../../styles/Channels.module.css'
 import { useRollbar } from '@rollbar/react'
 
 import { useTranslation } from 'react-i18next'
-import { toast } from 'react-toastify'
+
 import filter from 'leo-profanity'
 import { getChannelValidationSchema } from '../../utils/validationSchema'
-import api from '../../api/api'
+import addChannel from '../../utils/addChannel'
 
 const AddChannel = ({ show, onHide }) => {
   const channels = useSelector((state) => state.channels.items)
@@ -42,26 +41,15 @@ const AddChannel = ({ show, onHide }) => {
       name: '',
     },
     validationSchema,
-    onSubmit: (values, { resetForm }) => {
-      const cleaned = normalizeName(values.name)
-      const newChannel = { name: cleaned }
-
-      return api
-        .post('/channels', newChannel)
-        .then(({ data }) => {
-          dispatch(setActiveChannel(data.id))
-          toast.success(t('toast.created'))
-          resetForm()
-          onHide()
-        })
-        .catch((e) => {
-          rollbar.error('Create channel failed', e, {
-            channelName: cleaned,
-            status: e?.response?.status,
-          })
-          toast.error(!e.response ? t('errors.network') : t('errors.unknown'))
-        })
-    },
+    onSubmit: (values, { resetForm }) =>
+      addChannel(values, {
+        normalizeName,
+        dispatch,
+        resetForm,
+        onHide,
+        rollbar,
+        t,
+      }),
   })
 
   const isInvalid = formik.touched.name && Boolean(formik.errors.name)

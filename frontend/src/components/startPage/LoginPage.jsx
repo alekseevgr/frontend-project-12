@@ -2,14 +2,14 @@ import { useFormik } from 'formik'
 import { useNavigate } from 'react-router-dom'
 import { Button, Form } from 'react-bootstrap'
 import { useState } from 'react'
-import api from '../../api/api'
 
 import { useDispatch } from 'react-redux'
-import { setCredentials } from '../../slices/authSlice'
+
 import styles from '../../styles/StartPage.module.css'
 import { useTranslation } from 'react-i18next'
-import { toast } from 'react-toastify'
+
 import { useRollbar } from '@rollbar/react'
+import login from '../../utils/login'
 
 const LoginPage = () => {
   const dispatch = useDispatch()
@@ -24,29 +24,8 @@ const LoginPage = () => {
       username: '',
       password: '',
     },
-    onSubmit: async (values) => {
-      try {
-        const res = await api.post('/login', values)
-        const token = res.data.token
-        const name = res.data.username
-
-        dispatch(setCredentials({ token, name }))
-
-        localStorage.setItem('userId', token)
-        localStorage.setItem('username', name)
-
-        navigate('/', { replace: true })
-
-        setErrorPassword(false)
-      } catch (err) {
-        if (err.response?.status === 401) {
-          setErrorPassword(true)
-        } else {
-          rollbar.error('Login failed', err, { username: values.username })
-          toast.error(!err.response ? t('errors.network') : t('errors.unknown'))
-        }
-      }
-    },
+    onSubmit: (values) =>
+      login(values, { dispatch, navigate, rollbar, setErrorPassword, t }),
   })
 
   const isInvalid = Boolean(errorPassword)

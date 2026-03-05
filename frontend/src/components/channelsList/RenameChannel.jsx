@@ -1,15 +1,12 @@
 import { Modal, Form, Button } from 'react-bootstrap'
 import { useSelector } from 'react-redux'
 import { useFormik } from 'formik'
-import api from '../../api/api'
-
 import { useEffect, useRef, useMemo } from 'react'
 import styles from '../../styles/Channels.module.css'
 import { useTranslation } from 'react-i18next'
-import { toast } from 'react-toastify'
-import filter from 'leo-profanity'
 import { useRollbar } from '@rollbar/react'
 import { getChannelValidationSchema } from '../../utils/validationSchema'
+import renameChannel from '../../utils/renameChannel'
 
 const RenameChannel = ({ show, onHide, channelId }) => {
   const channel = useSelector((state) =>
@@ -42,32 +39,8 @@ const RenameChannel = ({ show, onHide, channelId }) => {
       name: channel?.name ?? '',
     },
     validationSchema,
-    onSubmit: (values, { resetForm, setFieldError, setSubmitting }) => {
-      const name = values.name.trim()
-
-      if (filter.check(name)) {
-        setFieldError('name', t('errors.profanity'))
-        toast.error(t('errors.profanity'))
-        setSubmitting(false)
-        return
-      }
-
-      const newName = { name }
-      return api
-        .patch(`channels/${channelId}`, newName)
-        .then(() => {
-          toast.success(t('toast.renaming'))
-          resetForm()
-          onHide()
-        })
-        .catch((e) => {
-          rollbar.error('Rename channel failed', e, {
-            nameChannel: name,
-            status: e?.response?.status,
-          })
-          toast.error(!e.response ? t('errors.network') : t('errors.unknown'))
-        })
-    },
+    onSubmit: (values, formikHelpers) =>
+      renameChannel(values, { channelId, onHide, rollbar, formikHelpers, t }),
   })
   const isInvalid = formik.touched.name && Boolean(formik.errors.name)
   const handleCancel = () => {
