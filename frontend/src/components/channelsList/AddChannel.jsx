@@ -6,36 +6,29 @@ import routes from '../../utils/routes'
 import { useDispatch, useSelector } from 'react-redux'
 import { useMemo } from 'react'
 import { setActiveChannel } from '../../slices/channelsSlice'
-import * as yup from 'yup'
 import styles from '../../styles/Channels.module.css'
 import { useRollbar } from '@rollbar/react'
 
 import { useTranslation } from 'react-i18next'
 import { toast } from 'react-toastify'
 import filter from 'leo-profanity'
+import { getChannelValidationSchema } from '../../utils/validationSchema'
 
 const AddChannel = ({ show, onHide }) => {
-  const token = useSelector(state => state.auth.token)
-  const channels = useSelector(state => state.channels.items)
+  const token = useSelector((state) => state.auth.token)
+  const channels = useSelector((state) => state.channels.items)
   const dispatch = useDispatch()
   const rollbar = useRollbar()
 
   const { t } = useTranslation()
+  const normalizeName = (value) => filter.clean(value?.trim() ?? '')
 
   const validationSchema = useMemo(
     () =>
-      yup.object({
-        name: yup
-          .string()
-          .trim()
-          .min(3, t('form.symbolsRange'))
-          .max(20, t('form.symbolsRange'))
-          .required(t('form.required'))
-          .test('unique', t('channels.unique'), (value) => {
-            const raw = value?.trim() ?? ''
-            const cleaned = filter.clean(raw)
-            return !channels.some(c => c.name === cleaned)
-          }),
+      getChannelValidationSchema({
+        t,
+        channels,
+        normalizeName,
       }),
     [t, channels],
   )

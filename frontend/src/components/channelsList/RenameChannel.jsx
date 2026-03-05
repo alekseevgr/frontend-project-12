@@ -4,35 +4,32 @@ import { useFormik } from 'formik'
 import routes from '../../utils/routes'
 import axios from 'axios'
 
-import { useEffect, useRef } from 'react'
-import * as yup from 'yup'
+import { useEffect, useRef, useMemo } from 'react'
 import styles from '../../styles/Channels.module.css'
 import { useTranslation } from 'react-i18next'
 import { toast } from 'react-toastify'
 import filter from 'leo-profanity'
 import { useRollbar } from '@rollbar/react'
+import { getChannelValidationSchema } from '../../utils/validationSchema'
 
 const RenameChannel = ({ show, onHide, channelId }) => {
-  const token = useSelector(state => state.auth.token)
-  const channel = useSelector(state =>
-    state.channels.items.find(c => c.id === channelId),
+  const token = useSelector((state) => state.auth.token)
+  const channel = useSelector((state) =>
+    state.channels.items.find((c) => c.id === channelId),
   )
-  const channels = useSelector(state => state.channels.items)
+  const channels = useSelector((state) => state.channels.items)
   const { t } = useTranslation()
   const rollbar = useRollbar()
 
-  const validationSchema = yup.object({
-    name: yup
-      .string()
-      .trim()
-      .min(3, t('form.symbolsRange'))
-      .max(20, t('form.symbolsRange'))
-      .required(t('form.required'))
-      .test('unique', t('channels.unique'), (value) => {
-        const name = value?.trim()
-        return !channels.some(c => c.name === name && c.id !== channelId)
+  const validationSchema = useMemo(
+    () =>
+      getChannelValidationSchema({
+        t,
+        channels,
+        channelId,
       }),
-  })
+    [t, channels, channelId],
+  )
 
   const inputRef = useRef(null)
   useEffect(() => {

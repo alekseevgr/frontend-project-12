@@ -3,7 +3,6 @@ import { useNavigate } from 'react-router-dom'
 import { Button, Form } from 'react-bootstrap'
 import axios from 'axios'
 import routes from '../../utils/routes'
-import * as yup from 'yup'
 
 import styles from '../../styles/StartPage.module.css'
 import { useDispatch } from 'react-redux'
@@ -11,6 +10,7 @@ import { setCredentials } from '../../slices/authSlice'
 import { useTranslation } from 'react-i18next'
 import { toast } from 'react-toastify'
 import { useRollbar } from '@rollbar/react'
+import getValidationSchema from '../../utils/validationSchema'
 
 const RegistrationPage = () => {
   const navigate = useNavigate()
@@ -18,24 +18,7 @@ const RegistrationPage = () => {
   const { t } = useTranslation()
   const rollbar = useRollbar()
 
-  const validationSchema = yup.object({
-    username: yup
-      .string()
-      .trim()
-      .min(3, t('form.symbolsRange'))
-      .max(20, t('form.symbolsRange'))
-      .required(t('form.required')),
-    password: yup
-      .string()
-      .trim()
-      .min(6, t('form.minPassword'))
-      .required(t('form.required')),
-    confirmPassword: yup
-      .string()
-      .trim()
-      .oneOf([yup.ref('password')], t('form.equalPassword'))
-      .required(t('form.required')),
-  })
+  const validationSchema = getValidationSchema(t)
 
   const formik = useFormik({
     initialValues: {
@@ -61,8 +44,7 @@ const RegistrationPage = () => {
         localStorage.setItem('username', name)
 
         navigate('/', { replace: true })
-      }
-      catch (err) {
+      } catch (err) {
         if (err.response?.status === 409) {
           formik.setFieldError('username', t('login.nameTaken'))
           return
@@ -74,12 +56,12 @@ const RegistrationPage = () => {
       }
     },
   })
-  const usernameInvalid
-    = formik.touched.username && Boolean(formik.errors.username)
-  const passwordInvalid
-    = formik.touched.password && Boolean(formik.errors.password)
-  const confirmInvalid
-    = formik.touched.confirmPassword && Boolean(formik.errors.confirmPassword)
+  const usernameInvalid =
+    formik.touched.username && Boolean(formik.errors.username)
+  const passwordInvalid =
+    formik.touched.password && Boolean(formik.errors.password)
+  const confirmInvalid =
+    formik.touched.confirmPassword && Boolean(formik.errors.confirmPassword)
 
   return (
     <div className={styles.center}>
