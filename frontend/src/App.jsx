@@ -21,11 +21,11 @@ const App = () => {
   const rollbar = useRollbar()
 
   async function getChannels() {
-    const { data } = await instance.get(routes.channels)
+    const { data } = await instance.get(routes.channels())
     return data
   }
   async function getMessages() {
-    const { data } = await instance.get(routes.messages)
+    const { data } = await instance.get(routes.messages())
     return data
   }
 

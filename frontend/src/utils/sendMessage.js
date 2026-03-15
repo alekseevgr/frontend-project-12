@@ -21,7 +21,7 @@ const sendMessage = async (values, deps) => {
   }
 
   return await instance
-    .post(routes.messages, newMessage)
+    .post(routes.messages(), newMessage)
     .then(() => {
       resetForm()
       resetHeight()

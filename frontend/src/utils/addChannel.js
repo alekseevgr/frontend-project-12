@@ -9,7 +9,7 @@ const addChannel = async (values, deps) => {
   const newChannel = { name: cleaned }
 
   return await instance
-    .post(routes.channel, newChannel)
+    .post(routes.channels(), newChannel)
     .then(({ data }) => {
       dispatch(setActiveChannel(data.id))
       toast.success(t('toast.created'))

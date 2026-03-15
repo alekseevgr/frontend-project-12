@@ -7,7 +7,7 @@ const registration = async (values, deps) => {
   const { dispatch, navigate, rollbar, formikHelpers, t } = deps
   try {
     const { username, password } = values
-    const res = await instance.post(routes.signup, {
+    const res = await instance.post(routes.signup(), {
       username,
       password,
     })
