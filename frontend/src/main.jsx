@@ -21,7 +21,7 @@ import './i18n'
 import { store } from './slices/store.js'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Header from './utils/Header.jsx'
-import { setupInterceptors } from './api/interceptors.js'
+import { setupInterceptors } from './instance/interceptors.js'
 import instance from './instance/instance.js'
 
 const root = document.getElementById('root')
