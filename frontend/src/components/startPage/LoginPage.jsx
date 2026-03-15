@@ -10,7 +10,6 @@ import { useTranslation } from 'react-i18next'
 
 import { useRollbar } from '@rollbar/react'
 import login from '../../utils/login'
-import routes from '../../utils/routes'
 
 const LoginPage = () => {
   const dispatch = useDispatch()
@@ -31,7 +30,7 @@ const LoginPage = () => {
 
   const isInvalid = Boolean(errorPassword)
   const handleClick = () => {
-    navigate(routes.signup, { replace: true })
+    navigate('/signup', { replace: true })
   }
 
   return (
