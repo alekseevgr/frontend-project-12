@@ -24,7 +24,7 @@ const LoginPage = () => {
       username: '',
       password: '',
     },
-    onSubmit: (values) =>
+    onSubmit: values =>
       login(values, { dispatch, navigate, rollbar, setErrorPassword, t }),
   })
 
@@ -95,7 +95,8 @@ const LoginPage = () => {
         </div>
       </div>
       <div className={styles.footerBlock}>
-        {t('login.noAccount')}{' '}
+        {t('login.noAccount')}
+        {' '}
         <button
           type="button"
           onClick={handleClick}

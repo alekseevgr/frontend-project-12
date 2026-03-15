@@ -25,6 +25,7 @@ const registration = async (values, deps) => {
       formikHelpers.setFieldError('username', t('login.nameTaken'))
       return
     }
+
     rollbar.error('Registration failed', err, {
       username: values.username,
     })

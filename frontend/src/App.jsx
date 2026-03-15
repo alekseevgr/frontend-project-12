@@ -14,9 +14,9 @@ import api from './api/api'
 
 const App = () => {
   const dispatch = useDispatch()
-  const token = useSelector((state) => state.auth.token)
-  const channels = useSelector((state) => state.channels.items)
-  const messages = useSelector((state) => state.messages.items)
+  const token = useSelector(state => state.auth.token)
+  const channels = useSelector(state => state.channels.items)
+  const messages = useSelector(state => state.messages.items)
   const rollbar = useRollbar()
 
   async function getChannels() {
@@ -29,7 +29,7 @@ const App = () => {
   }
 
   useEffect(() => {
-    ;(async () => {
+    async function loadInitialData() {
       try {
         const [channelsData, messagesData] = await Promise.all([
           getChannels(token),
@@ -43,7 +43,9 @@ const App = () => {
           hasToken: Boolean(token),
         })
       }
-    })()
+    }
+
+    loadInitialData()
   }, [token, dispatch, rollbar])
 
   return (

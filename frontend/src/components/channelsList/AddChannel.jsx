@@ -12,7 +12,7 @@ import { getChannelValidationSchema } from '../../utils/validationSchema'
 import addChannel from '../../utils/addChannel'
 
 const AddChannel = ({ show, onHide }) => {
-  const channels = useSelector((state) => state.channels.items)
+  const channels = useSelector(state => state.channels.items)
   const dispatch = useDispatch()
   const rollbar = useRollbar()
 

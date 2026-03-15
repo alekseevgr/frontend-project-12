@@ -8,8 +8,8 @@ import { useRef, useEffect } from 'react'
 import sendMessage from '../../utils/sendMessage'
 
 const NewMessage = () => {
-  const currentName = useSelector((state) => state.auth.username)
-  const currentId = useSelector((state) => state.channels.activeChannelId)
+  const currentName = useSelector(state => state.auth.username)
+  const currentId = useSelector(state => state.channels.activeChannelId)
 
   const { t } = useTranslation()
   const rollbar = useRollbar()
@@ -63,11 +63,11 @@ const NewMessage = () => {
           name="message"
           aria-label={t('channels.newMessage')}
           value={formik.values.message}
-          onChange={(e) => {
+          onChange={e => {
             formik.handleChange(e)
             growOnly()
           }}
-          onKeyDown={(e) => {
+          onKeyDown={e => {
             if (e.key === 'Enter' && !e.shiftKey) {
               e.preventDefault()
               formik.handleSubmit()

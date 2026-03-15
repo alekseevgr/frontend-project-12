@@ -32,29 +32,31 @@ filter.add(filter.getDictionary('ru'))
 setupInterceptors(api, store)
 
 ReactDOM.createRoot(root).render(
-  <StrictMode>
-    <RollbarProvider config={rollbarConfig}>
-      <ErrorBoundary>
-        <Provider store={store}>
-          <BrowserRouter>
-            <ToastContainer />
-            <Header />
-            <Routes>
-              <Route
-                path="/"
-                element={
-                  <CheckAuth>
-                    <App />
-                  </CheckAuth>
-                }
-              />
-              <Route path="/login" element={<LoginPage />} />
-              <Route path="/signup" element={<RegistrationPage />} />
-              <Route path="*" element={<NotFound />} />
-            </Routes>
-          </BrowserRouter>
-        </Provider>
-      </ErrorBoundary>
-    </RollbarProvider>
-  </StrictMode>,
+  (
+    <StrictMode>
+      <RollbarProvider config={rollbarConfig}>
+        <ErrorBoundary>
+          <Provider store={store}>
+            <BrowserRouter>
+              <ToastContainer />
+              <Header />
+              <Routes>
+                <Route
+                  path="/"
+                  element={
+                    <CheckAuth>
+                      <App />
+                    </CheckAuth>
+                  }
+                />
+                <Route path="/login" element={<LoginPage />} />
+                <Route path="/signup" element={<RegistrationPage />} />
+                <Route path="*" element={<NotFound />} />
+              </Routes>
+            </BrowserRouter>
+          </Provider>
+        </ErrorBoundary>
+      </RollbarProvider>
+    </StrictMode>
+  ),
 )
