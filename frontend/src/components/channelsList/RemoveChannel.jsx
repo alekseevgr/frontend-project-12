@@ -1,11 +1,12 @@
 import { Modal, Form, Button } from 'react-bootstrap'
 import { useDispatch } from 'react-redux'
-import api from '../../api/api'
+import instance from '../../instance/instance'
 import { setActiveChannel } from '../../slices/channelsSlice'
 import styles from '../../styles/Channels.module.css'
 import { useTranslation } from 'react-i18next'
 import { toast } from 'react-toastify'
 import { useRollbar } from '@rollbar/react'
+import routes from '../../utils/routes'
 
 const RemoveChannel = ({ show, onHide, channelId }) => {
   const dispatch = useDispatch()
@@ -15,8 +16,8 @@ const RemoveChannel = ({ show, onHide, channelId }) => {
 
   const handleSubmit = (e) => {
     e.preventDefault()
-    api
-      .delete(`/channels/${channelId}`)
+    instance
+      .delete(routes.editChannel(channelId))
       .then(() => {
         dispatch(setActiveChannel('1'))
         toast.success(t('toast.removing'))
