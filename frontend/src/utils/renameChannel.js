@@ -1,6 +1,7 @@
-import api from '../api/api'
+import instance from '../instance/instance'
 import { toast } from 'react-toastify'
 import filter from 'leo-profanity'
+import routes from './routes'
 
 const renameChannel = async (values, deps) => {
   const { channelId, onHide, rollbar, formikHelpers, t } = deps
@@ -14,8 +15,8 @@ const renameChannel = async (values, deps) => {
   }
 
   const newName = { name }
-  return await api
-    .patch(`channels/${channelId}`, newName)
+  return await instance
+    .patch(routes.editChannel(channelId), newName)
     .then(() => {
       toast.success(t('toast.renaming'))
       formikHelpers.resetForm()

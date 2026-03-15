@@ -10,7 +10,8 @@ import MessageList from './components/messageList/MessageList'
 import NewMessage from './components/messageList/NewMessage'
 import styles from './styles/App.module.css'
 import { useRollbar } from '@rollbar/react'
-import api from './api/api'
+import routes from './utils/routes'
+import instance from './instance/instance'
 
 const App = () => {
   const dispatch = useDispatch()
@@ -20,11 +21,11 @@ const App = () => {
   const rollbar = useRollbar()
 
   async function getChannels() {
-    const { data } = await api.get('/channels')
+    const { data } = await instance.get(routes.channels)
     return data
   }
   async function getMessages() {
-    const { data } = await api.get('/messages')
+    const { data } = await instance.get(routes.messages)
     return data
   }
 
@@ -38,7 +39,8 @@ const App = () => {
 
         dispatch(setChannels(channelsData))
         dispatch(setMessages(messagesData))
-      } catch (e) {
+      }
+      catch (e) {
         rollbar.error('Failed to load initial data', e, {
           hasToken: Boolean(token),
         })

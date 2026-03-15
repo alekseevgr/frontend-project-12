@@ -1,6 +1,7 @@
-import api from '../api/api'
+import instance from '../instance/instance'
 import { toast } from 'react-toastify'
 import filter from 'leo-profanity'
+import routes from './routes'
 
 const sendMessage = async (values, deps) => {
   const { currentName, currentId, t, resetForm, resetHeight, rollbar } = deps
@@ -19,8 +20,8 @@ const sendMessage = async (values, deps) => {
     username: currentName,
   }
 
-  return await api
-    .post('/messages', newMessage)
+  return await instance
+    .post(routes.messages, newMessage)
     .then(() => {
       resetForm()
       resetHeight()

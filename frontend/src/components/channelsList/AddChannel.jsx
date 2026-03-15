@@ -17,7 +17,7 @@ const AddChannel = ({ show, onHide }) => {
   const rollbar = useRollbar()
 
   const { t } = useTranslation()
-  const normalizeName = (value) => filter.clean(value?.trim() ?? '')
+  const normalizeName = value => filter.clean(value?.trim() ?? '')
 
   const validationSchema = useMemo(
     () =>

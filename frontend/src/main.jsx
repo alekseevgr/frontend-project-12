@@ -22,14 +22,14 @@ import { store } from './slices/store.js'
 import 'bootstrap/dist/css/bootstrap.min.css'
 import Header from './utils/Header.jsx'
 import { setupInterceptors } from './api/interceptors.js'
-import api from './api/api.js'
+import instance from './instance/instance.js'
 
 const root = document.getElementById('root')
 
 filter.loadDictionary('en')
 filter.add(filter.getDictionary('ru'))
 
-setupInterceptors(api, store)
+setupInterceptors(instance, store)
 
 ReactDOM.createRoot(root).render(
   (
@@ -43,11 +43,11 @@ ReactDOM.createRoot(root).render(
               <Routes>
                 <Route
                   path="/"
-                  element={
+                  element={(
                     <CheckAuth>
                       <App />
                     </CheckAuth>
-                  }
+                  )}
                 />
                 <Route path="/login" element={<LoginPage />} />
                 <Route path="/signup" element={<RegistrationPage />} />

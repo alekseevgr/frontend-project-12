@@ -35,7 +35,7 @@ export const getChannelValidationSchema = ({
       .min(3, t('form.symbolsRange'))
       .max(20, t('form.symbolsRange'))
       .required(t('form.required'))
-      .test('unique', t('channels.unique'), value => {
+      .test('unique', t('channels.unique'), (value) => {
         const name = normalize(value)
         return !channels.some(
           c => normalize(c.name) === name && c.id !== channelId,

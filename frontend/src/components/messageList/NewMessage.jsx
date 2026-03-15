@@ -63,11 +63,11 @@ const NewMessage = () => {
           name="message"
           aria-label={t('channels.newMessage')}
           value={formik.values.message}
-          onChange={e => {
+          onChange={(e) => {
             formik.handleChange(e)
             growOnly()
           }}
-          onKeyDown={e => {
+          onKeyDown={(e) => {
             if (e.key === 'Enter' && !e.shiftKey) {
               e.preventDefault()
               formik.handleSubmit()

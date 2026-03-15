@@ -1,11 +1,12 @@
-import api from '../api/api'
+import instance from '../instance/instance'
 import { setCredentials } from '../slices/authSlice'
 import { toast } from 'react-toastify'
+import routes from './routes'
 
 const login = async (values, deps) => {
   const { dispatch, navigate, rollbar, setErrorPassword, t } = deps
   try {
-    const res = await api.post('/login', values)
+    const res = await instance.post(routes.login, values)
     const token = res.data.token
     const name = res.data.username
 
@@ -17,7 +18,8 @@ const login = async (values, deps) => {
     navigate('/', { replace: true })
 
     setErrorPassword(false)
-  } catch (err) {
+  }
+  catch (err) {
     if (err.response?.status === 401) {
       setErrorPassword(true)
     }

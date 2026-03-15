@@ -1,5 +1,5 @@
-export const setupInterceptors = (api, store) => {
-  api.interceptors.request.use((config) => {
+export const setupInterceptors = (instance, store) => {
+  instance.interceptors.request.use((config) => {
     const token = store.getState().auth.token
 
     if (token) {

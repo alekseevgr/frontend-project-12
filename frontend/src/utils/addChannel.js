@@ -1,14 +1,15 @@
 import { setActiveChannel } from '../slices/channelsSlice'
 import { toast } from 'react-toastify'
-import api from '../api/api'
+import instance from '../instance/instance'
+import routes from './routes'
 
 const addChannel = async (values, deps) => {
   const { normalizeName, dispatch, resetForm, onHide, rollbar, t } = deps
   const cleaned = normalizeName(values.name)
   const newChannel = { name: cleaned }
 
-  return await api
-    .post('/channels', newChannel)
+  return await instance
+    .post(routes.channel, newChannel)
     .then(({ data }) => {
       dispatch(setActiveChannel(data.id))
       toast.success(t('toast.created'))

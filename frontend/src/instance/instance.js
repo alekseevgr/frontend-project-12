@@ -1,8 +1,8 @@
 import axios from 'axios'
 
-const api = axios.create({
+const instance = axios.create({
   baseURL: '/api/v1',
   timeout: 1000,
 })
 
-export default api
+export default instance

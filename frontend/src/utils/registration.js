@@ -1,12 +1,13 @@
-import api from '../api/api'
+import instance from '../instance/instance'
 import { setCredentials } from '../slices/authSlice'
 import { toast } from 'react-toastify'
+import routes from './routes'
 
 const registration = async (values, deps) => {
   const { dispatch, navigate, rollbar, formikHelpers, t } = deps
   try {
     const { username, password } = values
-    const res = await api.post('/signup', {
+    const res = await instance.post(routes.signup, {
       username,
       password,
     })
@@ -20,7 +21,8 @@ const registration = async (values, deps) => {
     localStorage.setItem('username', name)
 
     navigate('/', { replace: true })
-  } catch (err) {
+  }
+  catch (err) {
     if (err.response?.status === 409) {
       formikHelpers.setFieldError('username', t('login.nameTaken'))
       return
