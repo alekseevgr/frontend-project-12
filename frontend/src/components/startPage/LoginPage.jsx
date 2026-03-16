@@ -2,14 +2,12 @@ import { useFormik } from 'formik'
 import { useNavigate } from 'react-router-dom'
 import { Button, Form } from 'react-bootstrap'
 import { useState } from 'react'
-
 import { useDispatch } from 'react-redux'
-
 import styles from '../../styles/StartPage.module.css'
 import { useTranslation } from 'react-i18next'
-
 import { useRollbar } from '@rollbar/react'
 import login from '../../utils/login'
+import { getLoginValidationSchema } from '../../utils/validationSchema'
 
 const LoginPage = () => {
   const dispatch = useDispatch()
@@ -24,14 +22,25 @@ const LoginPage = () => {
       username: '',
       password: '',
     },
-    onSubmit: values =>
+    validationSchema: getLoginValidationSchema(t),
+    onSubmit: (values) =>
       login(values, { dispatch, navigate, rollbar, setErrorPassword, t }),
   })
 
-  const isInvalid = Boolean(errorPassword)
+  const usernameInvalid =
+    formik.touched.username && Boolean(formik.errors.username)
+
+  const passwordInvalid =
+    (formik.touched.password && Boolean(formik.errors.password)) ||
+    Boolean(errorPassword)
+
   const handleClick = () => {
     navigate('/signup', { replace: true })
   }
+  const errorMessage =
+    (formik.touched.password && formik.errors.password) ||
+    (formik.touched.username && formik.errors.username) ||
+    (errorPassword && t('login.invalidCreds'))
 
   return (
     <div className={styles.center}>
@@ -47,11 +56,15 @@ const LoginPage = () => {
                     name="username"
                     type="text"
                     value={formik.values.username}
-                    onChange={formik.handleChange}
+                    onChange={(e) => {
+                      setErrorPassword(false)
+                      formik.handleChange(e)
+                    }}
                     onBlur={formik.handleBlur}
                     placeholder=" "
-                    className={`${styles.input} ${isInvalid ? styles.inputInvalid : ''}`}
-                    isInvalid={isInvalid}
+                    className={`${styles.input} ${usernameInvalid ? styles.inputInvalid : ''}`}
+                    isInvalid={usernameInvalid}
+                    autoComplete="off"
                   />
                   <label className={styles.floatingLabel} htmlFor="username">
                     {t('login.nickname')}
@@ -66,22 +79,26 @@ const LoginPage = () => {
                     name="password"
                     type="password"
                     value={formik.values.password}
-                    onChange={formik.handleChange}
+                    onChange={(e) => {
+                      setErrorPassword(false)
+                      formik.handleChange(e)
+                    }}
                     onBlur={formik.handleBlur}
                     placeholder=" "
-                    className={`${styles.input} ${isInvalid ? styles.inputInvalid : ''}`}
-                    isInvalid={isInvalid}
+                    className={`${styles.input} ${passwordInvalid ? styles.inputInvalid : ''}`}
+                    isInvalid={passwordInvalid}
+                    autoComplete="off"
                   />
                   <label className={styles.floatingLabel} htmlFor="password">
                     {t('login.password')}
                   </label>
 
-                  {isInvalid && (
+                  {errorMessage && (
                     <Form.Control.Feedback
                       type="invalid"
                       className={styles.invalidFeedback}
                     >
-                      {t('login.invalidCreds')}
+                      {errorMessage}
                     </Form.Control.Feedback>
                   )}
                 </div>
@@ -95,8 +112,7 @@ const LoginPage = () => {
         </div>
       </div>
       <div className={styles.footerBlock}>
-        {t('login.noAccount')}
-        {' '}
+        {t('login.noAccount')}{' '}
         <button
           type="button"
           onClick={handleClick}

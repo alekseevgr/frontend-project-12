@@ -9,7 +9,7 @@ const Header = () => {
   const dispatch = useDispatch()
   const navigate = useNavigate()
   const { t } = useTranslation()
-  const isAuthenticated = useSelector(state => state.auth.isAuthenticated)
+  const isAuthenticated = useSelector((state) => state.auth.isAuthenticated)
   const handleClick = () => {
     navigate('/', { replace: true })
   }

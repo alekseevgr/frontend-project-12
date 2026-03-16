@@ -34,12 +34,12 @@ const RegistrationPage = () => {
         t,
       }),
   })
-  const usernameInvalid
-    = formik.touched.username && Boolean(formik.errors.username)
-  const passwordInvalid
-    = formik.touched.password && Boolean(formik.errors.password)
-  const confirmInvalid
-    = formik.touched.confirmPassword && Boolean(formik.errors.confirmPassword)
+  const usernameInvalid =
+    formik.touched.username && Boolean(formik.errors.username)
+  const passwordInvalid =
+    formik.touched.password && Boolean(formik.errors.password)
+  const confirmInvalid =
+    formik.touched.confirmPassword && Boolean(formik.errors.confirmPassword)
 
   return (
     <div className={styles.center}>
@@ -61,6 +61,7 @@ const RegistrationPage = () => {
                     placeholder=" "
                     className={`${styles.input} ${usernameInvalid ? styles.inputInvalid : ''}`}
                     isInvalid={usernameInvalid}
+                    autoComplete="off"
                   />
                   <label className={styles.floatingLabel} htmlFor="username">
                     {t('login.name')}
@@ -87,6 +88,7 @@ const RegistrationPage = () => {
                     placeholder=" "
                     className={`${styles.input} ${passwordInvalid ? styles.inputInvalid : ''}`}
                     isInvalid={passwordInvalid}
+                    autoComplete="off"
                   />
                   <label className={styles.floatingLabel} htmlFor="password">
                     {t('login.password')}
@@ -113,6 +115,7 @@ const RegistrationPage = () => {
                     placeholder=" "
                     className={`${styles.input} ${confirmInvalid ? styles.inputInvalid : ''}`}
                     isInvalid={confirmInvalid}
+                    autoComplete="off"
                   />
                   <label
                     className={styles.floatingLabel}

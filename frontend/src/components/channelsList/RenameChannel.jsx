@@ -9,10 +9,10 @@ import { getChannelValidationSchema } from '../../utils/validationSchema'
 import renameChannel from '../../utils/renameChannel'
 
 const RenameChannel = ({ show, onHide, channelId }) => {
-  const channel = useSelector(state =>
-    state.channels.items.find(c => c.id === channelId),
+  const channel = useSelector((state) =>
+    state.channels.items.find((c) => c.id === channelId),
   )
-  const channels = useSelector(state => state.channels.items)
+  const channels = useSelector((state) => state.channels.items)
   const { t } = useTranslation()
   const rollbar = useRollbar()
 
@@ -76,6 +76,7 @@ const RenameChannel = ({ show, onHide, channelId }) => {
               placeholder={t('channels.typeNewNameChannel')}
               className={`${styles.input} ${isInvalid ? styles.inputInvalid : ''}`}
               isInvalid={isInvalid}
+              autoComplete="off"
             />
             <Form.Control.Feedback
               type="invalid"
