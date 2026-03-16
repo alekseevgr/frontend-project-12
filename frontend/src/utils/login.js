@@ -18,7 +18,8 @@ const login = async (values, deps) => {
     navigate('/', { replace: true })
 
     setErrorPassword(false)
-  } catch (err) {
+  }
+  catch (err) {
     if (err.response?.status === 401) {
       setErrorPassword(true)
     }

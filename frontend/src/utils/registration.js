@@ -21,7 +21,8 @@ const registration = async (values, deps) => {
     localStorage.setItem('username', name)
 
     navigate('/', { replace: true })
-  } catch (err) {
+  }
+  catch (err) {
     if (err.response?.status === 409) {
       formikHelpers.setFieldError('username', t('login.nameTaken'))
       return

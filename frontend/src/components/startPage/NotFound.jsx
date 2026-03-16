@@ -5,11 +5,13 @@ import { useTranslation } from 'react-i18next'
 const NotFound = () => {
   const { t } = useTranslation()
   return (
-    <div className={styles.root}>
-      <div>{t('login.invalidPath')}</div>
-      <Link className={styles.link} to="/">
-        {t('chatName')}
-      </Link>
+    <div className={styles.center}>
+      <div className={styles.notFound}>
+        <div>{t('login.invalidPath')}</div>
+        <Link className={styles.footerLink} to="/">
+          {t('chatName')}
+        </Link>
+      </div>
     </div>
   )
 }

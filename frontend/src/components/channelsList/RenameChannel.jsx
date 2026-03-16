@@ -67,7 +67,7 @@ const RenameChannel = ({ show, onHide, channelId }) => {
               id="rename-channel-name"
               value={formik.values.name}
               aria-label={t('channels.channelName')}
-              onChange={e => {
+              onChange={(e) => {
                 formik.handleChange(e)
                 if (formik.errors.name) {
                   formik.setFieldError('name', undefined)

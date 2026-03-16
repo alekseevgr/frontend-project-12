@@ -139,3 +139,9 @@
 .footerLink:hover {
   text-decoration: underline;
 }
+
+.notFound {
+  display: grid;
+  gap: 12px;
+  text-align: center;
+}

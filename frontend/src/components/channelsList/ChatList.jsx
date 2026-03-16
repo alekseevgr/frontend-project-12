@@ -73,7 +73,7 @@ const ChatList = ({ channels }) => {
 
               <div
                 className={styles.channelActions}
-                onClick={(e) => e.stopPropagation()}
+                onClick={e => e.stopPropagation()}
               >
                 {removable && (
                   <>
@@ -87,7 +87,9 @@ const ChatList = ({ channels }) => {
                       }
                     >
                       ⋮
-                      <span className="visually-hidden">{t('channels.manageChannel')}</span>
+                      <span className="visually-hidden">
+                        {t('channels.manageChannel')}
+                      </span>
                     </button>
 
                     {openedMenuId === id && (
