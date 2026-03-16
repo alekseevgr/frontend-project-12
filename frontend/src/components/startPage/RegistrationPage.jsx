@@ -34,12 +34,12 @@ const RegistrationPage = () => {
         t,
       }),
   })
-  const usernameInvalid =
-    formik.touched.username && Boolean(formik.errors.username)
-  const passwordInvalid =
-    formik.touched.password && Boolean(formik.errors.password)
-  const confirmInvalid =
-    formik.touched.confirmPassword && Boolean(formik.errors.confirmPassword)
+  const usernameInvalid
+    = formik.touched.username && Boolean(formik.errors.username)
+  const passwordInvalid
+    = formik.touched.password && Boolean(formik.errors.password)
+  const confirmInvalid
+    = formik.touched.confirmPassword && Boolean(formik.errors.confirmPassword)
 
   return (
     <div className={styles.center}>

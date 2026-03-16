@@ -9,10 +9,10 @@ import { getChannelValidationSchema } from '../../utils/validationSchema'
 import renameChannel from '../../utils/renameChannel'
 
 const RenameChannel = ({ show, onHide, channelId }) => {
-  const channel = useSelector((state) =>
-    state.channels.items.find((c) => c.id === channelId),
+  const channel = useSelector(state =>
+    state.channels.items.find(c => c.id === channelId),
   )
-  const channels = useSelector((state) => state.channels.items)
+  const channels = useSelector(state => state.channels.items)
   const { t } = useTranslation()
   const rollbar = useRollbar()
 
@@ -67,7 +67,7 @@ const RenameChannel = ({ show, onHide, channelId }) => {
               id="rename-channel-name"
               value={formik.values.name}
               aria-label={t('channels.channelName')}
-              onChange={(e) => {
+              onChange={e => {
                 formik.handleChange(e)
                 if (formik.errors.name) {
                   formik.setFieldError('name', undefined)

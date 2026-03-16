@@ -8,8 +8,8 @@ import { useRef, useEffect } from 'react'
 import sendMessage from '../../utils/sendMessage'
 
 const NewMessage = () => {
-  const currentName = useSelector((state) => state.auth.username)
-  const currentId = useSelector((state) => state.channels.activeChannelId)
+  const currentName = useSelector(state => state.auth.username)
+  const currentId = useSelector(state => state.channels.activeChannelId)
 
   const { t } = useTranslation()
   const rollbar = useRollbar()

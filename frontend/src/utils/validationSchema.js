@@ -1,6 +1,6 @@
 import * as yup from 'yup'
 
-const getValidationSchema = (t) =>
+const getValidationSchema = t =>
   yup.object({
     username: yup
       .string()
@@ -20,7 +20,7 @@ const getValidationSchema = (t) =>
       .required(t('form.required')),
   })
 
-const defaultNormalize = (v) => v?.trim() ?? ''
+const defaultNormalize = v => v?.trim() ?? ''
 
 export const getChannelValidationSchema = ({
   t,
@@ -35,15 +35,15 @@ export const getChannelValidationSchema = ({
       .min(3, t('form.symbolsRange'))
       .max(20, t('form.symbolsRange'))
       .required(t('form.required'))
-      .test('unique', t('channels.unique'), (value) => {
+      .test('unique', t('channels.unique'), value => {
         const name = normalize(value)
         return !channels.some(
-          (c) => normalize(c.name) === name && c.id !== channelId,
+          c => normalize(c.name) === name && c.id !== channelId,
         )
       }),
   })
 
-export const getLoginValidationSchema = (t) =>
+export const getLoginValidationSchema = t =>
   yup.object({
     username: yup.string().trim().required(t('form.required')),
     password: yup.string().trim().required(t('form.required')),

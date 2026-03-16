@@ -35,9 +35,9 @@ export default defineConfig([
 
     plugins: {
       react: reactPlugin,
-      functional: functional,
+      'functional': functional,
       'testing-library': testingLibrary,
-      import: importPlugin,
+      'import': importPlugin,
       'react-hooks': reactHooks,
       'react-refresh': reactRefresh,
     },

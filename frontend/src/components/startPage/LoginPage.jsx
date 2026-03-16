@@ -23,24 +23,24 @@ const LoginPage = () => {
       password: '',
     },
     validationSchema: getLoginValidationSchema(t),
-    onSubmit: (values) =>
+    onSubmit: values =>
       login(values, { dispatch, navigate, rollbar, setErrorPassword, t }),
   })
 
-  const usernameInvalid =
-    formik.touched.username && Boolean(formik.errors.username)
+  const usernameInvalid
+    = formik.touched.username && Boolean(formik.errors.username)
 
-  const passwordInvalid =
-    (formik.touched.password && Boolean(formik.errors.password)) ||
-    Boolean(errorPassword)
+  const passwordInvalid
+    = (formik.touched.password && Boolean(formik.errors.password))
+      || Boolean(errorPassword)
 
   const handleClick = () => {
     navigate('/signup', { replace: true })
   }
-  const errorMessage =
-    (formik.touched.password && formik.errors.password) ||
-    (formik.touched.username && formik.errors.username) ||
-    (errorPassword && t('login.invalidCreds'))
+  const errorMessage
+    = (formik.touched.password && formik.errors.password)
+      || (formik.touched.username && formik.errors.username)
+      || (errorPassword && t('login.invalidCreds'))
 
   return (
     <div className={styles.center}>
@@ -112,7 +112,8 @@ const LoginPage = () => {
         </div>
       </div>
       <div className={styles.footerBlock}>
-        {t('login.noAccount')}{' '}
+        {t('login.noAccount')}
+        {' '}
         <button
           type="button"
           onClick={handleClick}

@@ -10,5 +10,5 @@ export const store = configureStore({
     messages: messagesReducer,
     channels: channelsReducer,
   },
-  middleware: (getDefault) => getDefault().concat(socketMiddleware()),
+  middleware: getDefault => getDefault().concat(socketMiddleware()),
 })
