@@ -82,9 +82,7 @@ const ChatList = ({ channels }) => {
                       className={styles.kebabBtn}
                       aria-label={t('channels.manageChannel')}
                       title={t('channels.manageChannel')}
-                      onClick={() =>
-                        setOpenedMenuId(prev => (prev === id ? null : id))
-                      }
+                      onClick={() => setOpenedMenuId(prev => (prev === id ? null : id))}
                     >
                       ⋮
                       <span className="visually-hidden">

@@ -30,11 +30,11 @@ export default defineConfig([
     },
 
     settings: {
-      'react': { version: 'detect' },
+      react: { version: 'detect' },
     },
 
     plugins: {
-      'react': reactPlugin,
+      react: reactPlugin,
       'functional': functional,
       'testing-library': testingLibrary,
       'import': importPlugin,
