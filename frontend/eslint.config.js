@@ -34,7 +34,7 @@ export default defineConfig([
     },
 
     plugins: {
-      react: reactPlugin,
+      'react': reactPlugin,
       'functional': functional,
       'testing-library': testingLibrary,
       'import': importPlugin,
